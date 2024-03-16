@@ -1,0 +1,10 @@
+<!-- TODO: Add the head.hbs partial here -->
+{{> head }}
+<!-- TODO: Add the nav.hbs partial here -->
+{{> nav }}
+{{#if flash_message }}
+    <p style="color: red">{{flash_message}}</p>
+{{/if}}
+{{{body}}}
+<!-- TODO: Add the footer.hbs partial here -->
+{{> footer }}
