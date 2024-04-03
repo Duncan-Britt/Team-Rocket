@@ -1,3 +1,13 @@
+import server from '../src/index.js'; //TODO: Make sure the path to your index.js is correctly added
+
+// ********************** Import Libraries ***********************************
+
+import chai from 'chai'; // Chai HTTP provides an interface for live integration testing of the API's.
+import chaiHttp from 'chai-http';
+chai.should();
+chai.use(chaiHttp);
+const {assert, expect} = chai;
+
 // ------ Lab 11 Part B: Test Cases ------
 describe('Testing Add User API', () => {
     // positive test case

@@ -94,6 +94,6 @@ app.get('/', (req, res) => {
 //   console.log('There was an ERROR: ', error);
 // });
 
-
+export default app;
 app.listen(3000);
 console.log('Server is listening on port 3000');
