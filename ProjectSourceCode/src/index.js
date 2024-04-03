@@ -95,5 +95,57 @@ app.get('/', (req, res) => {
 // });
 
 
+// ---------- Main Site Page Routes ----------
+// ---- home.hbs ----
+app.get('/', (req,res) => {
+    res.render('pages/home');
+});
+
+// ---- login.hbs ----
+app.get('/login', (req, res) => {
+    res.render('pages/login');
+});
+
+app.post('/login', (req, res) => {
+    //implement logging in
+});
+
+// Authentication middleware, required for login
+// const auth = (req, res, next) => {
+//     if (!req.session.user) {
+//       return res.redirect('/login');
+//     }
+//     next();
+//   };
+  
+//   app.use(auth);
+
+// ---- register.hbs ----
+app.get('/register', (req, res) => {
+    res.render('pages/reigster');
+});
+
+app.post('/register', (req, res) => {
+    //register new user
+});
+
+// ---- account.hbs ----
+app.get('/account', (req, res) => {
+    res.render('pages/account');
+    //pass relevant user info to account page via render
+});
+
+// ---- discover.hbs ----
+app.get('/discover', (req, res) => {
+    res.render('pages/discover');
+    // basic discover page, add search functionality (via GET calls)
+});
+
+// ---- logout.hbs ----
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.render('pages/logout');
+});
+
 app.listen(3000);
 console.log('Server is listening on port 3000');
