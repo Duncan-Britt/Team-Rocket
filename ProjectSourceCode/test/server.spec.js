@@ -39,8 +39,7 @@ describe('Testing Add User API', () => {
 
 
 // ------ Lab 11 Part C: Test Cases ------
-describe('default endpoit', () => {
-    // Sample test case given to test / endpoint.
+describe('default endpoint', () => {
     it('Returns the default welcome message', done => {
       chai
         .request(server)
@@ -49,5 +48,17 @@ describe('default endpoit', () => {
           expect(res).to.have.status(200);
           done();
         });
+    });
+  });
+
+  describe('nonexistent endpoint', () => {
+    it('Returns an error', done => {
+        chai 
+          .request(server)
+          .get('/DNE')
+          .end((err, res) => {
+            expect(res).to.have.status(404);
+            done();
+          });
     });
   });

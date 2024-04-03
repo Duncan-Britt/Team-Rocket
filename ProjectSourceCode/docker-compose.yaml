@@ -21,7 +21,7 @@ services:
       - '3000:3000'
     volumes:
      - ./:/repository
-    command: 'npm start'
-    # command: 'npm run testandrun' # to run mocha
+    #command: 'npm start'
+    command: 'npm run testandrun' # to run mocha
 volumes:
   group-project:
