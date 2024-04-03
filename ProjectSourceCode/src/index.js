@@ -125,9 +125,22 @@ app.get('/register', (req, res) => {
     res.render('pages/reigster');
 });
 
-app.post('/register', (req, res) => {
-    //register new user
-});
+app.post('/register', async (req, res) => {
+    //hash the password using bcrypt library
+    const hash = await bcrypt.hash(req.body.password, 10);
+    
+    //insert username, email, password into 
+    var insq = 'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) returning *;';
+      
+    db.one(insq, [req.body.username, req.body.email, hash])
+        .then(data => {
+            res.render('pages/login');
+        })
+        .catch(err => {
+            console.log(err);
+            res.render('pages/register');
+        });
+  });
 
 // ---- account.hbs ----
 app.get('/account', (req, res) => {
