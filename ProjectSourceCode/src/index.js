@@ -9,8 +9,8 @@ const pgp = pgPromise(); // To connect to the Postgres DB from the node server
 import session from 'express-session'; // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
 import bcryptjs from 'bcryptjs'; // To hash passwords / changed this to use bcryptjs instead of bycrypt (Jason Hunter)
 const axios = import('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
-import dotenv from 'dotenv'; // To read the .env file
-dotenv.config(); // To read the .env file
+// import dotenv from 'dotenv'; // To read the .env file
+// dotenv.config(); // To read the .env file
 
 import Pokedex from 'pokedex-promise-v2'; // To interact with the PokéAPI (Jason Hunter)
 const P = new Pokedex();
@@ -86,13 +86,13 @@ app.get('/', (req, res) => {
 //   console.log('There was an ERROR: ', error);
 // });
 
-P.getTypeByName("ground")
-.then((response) => {
-  console.log(response);
-})
-.catch((error) => {
-  console.log('There was an ERROR: ', error);
-});
+// P.getTypeByName("ground")
+// .then((response) => {
+//   console.log(response);
+// })
+// .catch((error) => {
+//   console.log('There was an ERROR: ', error);
+// });
 
 
 app.listen(3000);
