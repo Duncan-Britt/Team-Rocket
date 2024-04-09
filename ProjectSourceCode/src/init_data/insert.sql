@@ -1,5 +1,5 @@
+
 ALTER TABLE Pokemon
-ADD COLUMN number INTEGER,
 ADD COLUMN type_1 VARCHAR,
 ADD COLUMN type_2 VARCHAR,
 ADD COLUMN total INTEGER,
@@ -23,3 +23,6 @@ VALUES
 (6, 'Charizard', 'Fire', 'Flying', 534, 78, 84, 78, 109, 85, 100, 1, FALSE),
 (7, 'CharizardMega Charizard X', 'Fire', 'Dragon', 634, 78, 130, 111, 130, 85, 100, 1, FALSE),
 (8, 'CharizardMega Charizard Y', 'Fire', 'Flying', 634, 78, 104, 78, 159, 115, 100, 1, FALSE);
+
+ALTER TABLE Pokemon
+DROP COLUMN number;
