@@ -15,6 +15,8 @@ const axios = import('axios'); // To make HTTP requests from our server. We'll l
 import Pokedex from 'pokedex-promise-v2'; // To interact with the PokéAPI (Jason Hunter)
 const P = new Pokedex();
 
+import flash from 'express-flash';
+
 const hbs = exphbs.create({ 
     extname: 'hbs',
     layoutsDir: new URL('.', import.meta.url).pathname + '/views/layouts', // changed these two lines to use the import.meta.url syntax for ESM modules (Jason Hunter)
@@ -23,7 +25,7 @@ const hbs = exphbs.create({
 
 // database configuration
 const dbConfig = {
-    host: 'db', // the database server
+    host: 'db', // the database serves
     port: 5432, // the database port
     database: process.env.POSTGRES_DB, // the database name
     user: process.env.POSTGRES_USER, // the user account to connect with
@@ -53,9 +55,10 @@ app.use(
     session({
         secret: process.env.SESSION_SECRET,
         saveUninitialized: false,
-        resave: false,
+        resave: false,        
     })
 );
+app.use(flash());
 
 app.use(
     express.urlencoded({ // changed this to use express.urlencoded() instead of bodyParser.urlencoded() (Jason Hunter)
@@ -64,7 +67,32 @@ app.use(
 );
 
 app.get('/', (req, res) => {    
-    res.render('pages/home');
+    res.render('pages/home', { flash_messages: req.flash('create-account-success') });
+});
+
+app.get('/register', (req, res) => {
+    res.render('pages/register', { flash_messages: req.flash('create-account-error') });
+});
+
+app.post('/register', async (req, res) => {    
+    const password_hash = await bcryptjs.hash(req.body.password, 10);
+    const sql = `
+INSERT INTO Users (email, username, password)
+VALUES            ($1, $2, $3);`;
+    try {
+        await db.any(sql, [req.body.email, req.body.username, password_hash]);
+        req.flash('create-account-success', {
+            message: 'Account created! Please login.',
+            error: false,
+        });
+        res.redirect('/');
+    } catch(err) {
+        req.flash('create-account-error', {
+            message: 'There was an error creating your account. Please try again later.',
+            error: true,
+        });
+        res.redirect('/register');        
+    }
 });
 
 // can be used to specify an interval of pokemon to be fetched

@@ -1,0 +1,7 @@
+.reg-form {
+  margin: 20px auto;
+  width: 80%; /* Adjust the width as needed */
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow for better focus */
+  border-radius: 8px; /* Optional: rounds the corners for a smoother look */
+}
