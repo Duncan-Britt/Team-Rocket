@@ -2,9 +2,17 @@
 {{> head }}
 <!-- TODO: Add the nav.hbs partial here -->
 {{> nav }}
-{{#if flash_message }}
-    <p style="color: red">{{flash_message}}</p>
-{{/if}}
+<ul>
+    {{#each flash_messages}}        
+        <li>
+            {{#if this.error}}
+                <p style="color: red">{{this.message}}</p>
+            {{else}}
+                <p style="color: green">{{this.message}}</p>
+            {{/if}}
+        </li>
+    {{/each}}    
+</ul>
 {{{body}}}
 <!-- TODO: Add the footer.hbs partial here -->
 {{> footer }}
