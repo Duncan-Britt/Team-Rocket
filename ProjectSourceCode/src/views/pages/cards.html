@@ -48,7 +48,7 @@
             <div class="card pokemon-card" style="width: 18rem;" id = "charmelon_pm">
                 <img class="card-img-top" src="charmelon.jpg" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Charmeleon</h5>
+                    <h5 class="card-title" id="pokemon_name">Loading...</h5>
                     <p class="card-text type">Fire</p>
                 </div>
                 <ul class="list-group list-group-flush" id="pokemon_description">
@@ -63,5 +63,21 @@
           </div>
       </div>
   </div>
+  <script>
+    // Fetch Pokémon data from CSV file
+    fetch('pokemon.csv')
+      .then(response => response.text())
+      .then(csvData => {
+        const rows = csvData.split('\n').slice(1); // Skip header row
+        const charmelonData = rows.find(row => row.includes('Bulbasaur'));
+        const charmelonInfo = charmelonData.split(',');
   
+        // Populate Pokémon name
+        const pokemonNameElement = document.getElementById('pokemon_name');
+        pokemonNameElement.textContent = charmelonInfo[1]; // Assuming name is in the second column of CSV
+      })
+      .catch(error => {
+        console.error('Error fetching Pokémon data:', error);
+      });
+  </script>
 </html>
