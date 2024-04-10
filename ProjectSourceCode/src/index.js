@@ -67,7 +67,12 @@ app.use(
 );
 
 app.get('/', (req, res) => {    
-    res.render('pages/home', { userLoggedIn: req.session.user_id, flash_messages: req.flash('create-account-success').concat(req.flash('login-success')) });
+    res.render('pages/home', {
+        userLoggedIn: req.session.user_id,
+        flash_messages: req.flash('create-account-success')
+            .concat(req.flash('login-success'))
+            .concat(req.flash('logout-success')),
+    });
 });
 
 app.get('/register', (req, res) => {
@@ -97,6 +102,16 @@ VALUES            ($1, $2, $3);`;
 
 app.get('/login', (req, res) => {
     res.render('pages/login', { flash_messages: req.flash('invalid-credentials') });
+});
+
+app.get('/logout', (req, res) => {
+    req.session.user_id = null;
+    req.session.save();
+    req.flash('logout-success', {
+        message: 'You have been logged out.',
+        error: false,
+    });
+    res.redirect('/');
 });
 
 function login_is_email(login_string) {    
