@@ -67,7 +67,7 @@ app.use(
 );
 
 app.get('/', (req, res) => {    
-    res.render('pages/home', { flash_messages: req.flash('create-account-success') });
+    res.render('pages/home', { userLoggedIn: req.session.user_id, flash_messages: req.flash('create-account-success').concat(req.flash('login-success')) });
 });
 
 app.get('/register', (req, res) => {
@@ -93,6 +93,69 @@ VALUES            ($1, $2, $3);`;
         });
         res.redirect('/register');        
     }
+});
+
+app.get('/login', (req, res) => {
+    res.render('pages/login', { flash_messages: req.flash('invalid-credentials') });
+});
+
+function login_is_email(login_string) {    
+    const email_regex = /\S+@\S+\.\S+/;
+    return email_regex.test(login_string);
+}
+
+app.post('/login', async (req, res) => {
+    const password_hash = await bcryptjs.hash(req.body.password, 10);
+    let sql;
+    if (login_is_email(req.body.login)) {
+        sql = `
+SELECT id, password FROM Users WHERE email = $1`;
+    } else {
+        sql = `
+SELECT id, password FROM Users WHERE username = $1`;
+    }
+    let user;
+    try {
+        const users = await db.any(sql, [req.body.login]);
+        if (users.length === 1) {
+            user = users[0];
+            bcryptjs.compare(req.body.password, user.password, (err, matched) => {
+                if (err) {
+                    req.flash('invalid-credentials', {
+                        message: 'There has been an error. Please try again later.',
+                        error: true,
+                    });
+                    res.redirect('/login');
+                } else if (matched) {
+                    req.flash('login-success', {
+                        message: 'You are now logged in.',
+                        error: false,
+                    });
+                    req.session.user_id = user.id;
+                    req.session.save();
+                    res.redirect('/');
+                } else { // Incorrect password
+                    req.flash('invalid-credentials', {
+                        message: 'Invalid Login Credentials',
+                        error: true,
+                    });
+                    res.redirect('/login');
+                }        
+            });            
+        } else { // No user found with that email or password (or multiple! That shouldn't be able to happen);
+            req.flash('invalid-credentials', {
+                message: 'Invalid Login Credentials',
+                error: true,
+            });
+            res.redirect('/login');
+        }        
+    } catch(err) {
+        req.flash('invalid-credentials', {
+            message: 'There has been an error. Please try again later.',
+            error: true,
+        });
+        res.redirect('/login');
+    }      
 });
 
 // can be used to specify an interval of pokemon to be fetched
