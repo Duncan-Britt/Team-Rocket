@@ -1,27 +1,48 @@
-import express from 'express'; // I changed several of these imports to use the import syntax instead of require to support ESM modules (Jason Hunter)
+const express = require('express');
 const app = express();
-// import handlebars from 'handlebars'; 
-import exphbs from 'express-handlebars'; 
-import path from 'path'; 
-import pgPromise from 'pg-promise'; 
-const pgp = pgPromise(); // To connect to the Postgres DB from the node server
-// const bodyParser = import('body-parser'); 
-import session from 'express-session'; // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
-import bcryptjs from 'bcryptjs'; // To hash passwords / changed this to use bcryptjs instead of bycrypt (Jason Hunter)
-const axios = import('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
+const exphbs = require('express-handlebars');
+const path = require('path');
+const pgPromise = require('pg-promise');
+const pgp = pgPromise();
+const session = require('express-session');
+const bcryptjs = require('bcryptjs');
+const axios = require('axios');
+// const Pokedex = require('pokedex-promise-v2');
+// const P = new Pokedex();
+const flash = require('express-flash');
+
+// import express from 'express'; // I changed several of these imports to use the import syntax instead of require to support ESM modules (Jason Hunter)
+// const app = express();
+// // import handlebars from 'handlebars'; 
+// import exphbs from 'express-handlebars'; 
+// import path from 'path'; 
+// import pgPromise from 'pg-promise'; 
+// const pgp = pgPromise(); // To connect to the Postgres DB from the node server
+// // const bodyParser = import('body-parser'); 
+// import session from 'express-session'; // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
+// import bcryptjs from 'bcryptjs'; // To hash passwords / changed this to use bcryptjs instead of bycrypt (Jason Hunter)
+// const axios = import('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
+
+
 // import dotenv from 'dotenv'; // To read the .env file
 // dotenv.config(); // To read the .env file
 
-import Pokedex from 'pokedex-promise-v2'; // To interact with the PokéAPI (Jason Hunter)
-const P = new Pokedex();
+// import Pokedex from 'pokedex-promise-v2'; // To interact with the PokéAPI (Jason Hunter)
+// const P = new Pokedex();
 
-import flash from 'express-flash';
+// import flash from 'express-flash';
 
+// const hbs = exphbs.create({ 
+//     extname: 'hbs',
+//     layoutsDir: new URL('.', import.meta.url).pathname + '/views/layouts', // changed these two lines to use the import.meta.url syntax for ESM modules (Jason Hunter)
+//     partialsDir: new URL('.', import.meta.url).pathname + '/views/partials',
+// });
 const hbs = exphbs.create({ 
     extname: 'hbs',
-    layoutsDir: new URL('.', import.meta.url).pathname + '/views/layouts', // changed these two lines to use the import.meta.url syntax for ESM modules (Jason Hunter)
-    partialsDir: new URL('.', import.meta.url).pathname + '/views/partials',
+    layoutsDir: path.join(__dirname, '/views/layouts'), // Adjusted to use __dirname for CommonJS modules
+    partialsDir: path.join(__dirname, '/views/partials'), // Adjusted to use __dirname for CommonJS modules
 });
+
 
 // database configuration
 const dbConfig = {
@@ -46,7 +67,8 @@ db.connect()
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('views', path.join(new URL('.', import.meta.url).pathname, 'views')); // also changed this line to use ESM syntax (Jason Hunter)
+// app.set('views', path.join(new URL('.', import.meta.url).pathname, 'views')); // also changed this line to use ESM syntax (Jason Hunter)
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.json()); // specify the usage of JSON for parsing request body / changed this to use express.json() instead of bodyParser.json() (Jason Hunter)
 app.use(express.static('public')); // specify the usage of static files
 
@@ -216,6 +238,7 @@ SELECT id, password FROM Users WHERE username = $1`;
 //   console.log('There was an ERROR: ', error);
 // });
 
-export default app;
+// export default app;
+module.exports = app;
 app.listen(3000);
 console.log('Server is listening on port 3000');
