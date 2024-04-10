@@ -10,6 +10,7 @@ const axios = require('axios');
 // const Pokedex = require('pokedex-promise-v2');
 // const P = new Pokedex();
 const flash = require('express-flash');
+app.use(express.static(__dirname + '/'));
 
 // import express from 'express'; // I changed several of these imports to use the import syntax instead of require to support ESM modules (Jason Hunter)
 // const app = express();
