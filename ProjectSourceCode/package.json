@@ -1,7 +1,6 @@
 {
     "name": "pokedex",
     "exports": "./src/index.js",
-    "type": "module",
     "engines": {
         "node": ">=16"
     },
