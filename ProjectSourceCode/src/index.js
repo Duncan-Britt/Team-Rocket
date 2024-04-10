@@ -185,7 +185,7 @@ SELECT id, password FROM Users WHERE username = $1`;
                     });
                     req.session.user_id = user.id;
                     req.session.save();
-                    res.redirect('/');
+                    res.redirect('/collections');
                 } else { // Incorrect password
                     req.flash('invalid-credentials', {
                         message: 'Invalid Login Credentials',
