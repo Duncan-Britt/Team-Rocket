@@ -210,6 +210,30 @@ SELECT id, password FROM Users WHERE username = $1`;
     }      
 });
 
+app.get('/search', (req, res) => {
+    const query = `
+    SELECT DISTINCT Pokemon.id, Pokemon.name, Users.id = $1 
+        FROM Pokemon 
+        JOIN Users_Pokemon on Pokemon.id = Users_Pokemon.id_pokemon
+        JOIN Users on Users_Pokemon.id_user = Users.id
+        WHERE Users.id = $1;`;
+
+    db.any(query, [req.session.user_id])
+        .then(pokemon => {
+            res.render('pages/collections', {
+                pokemon,
+                //do API calls here?
+            });
+        })
+        .catch(pokemon => {
+            res.render('pages/collections', {
+                pokemon: [],
+                error: true,
+                message: err.message,
+            });
+        });
+});
+
 // can be used to specify an interval of pokemon to be fetched
 // const interval = 
 // {
