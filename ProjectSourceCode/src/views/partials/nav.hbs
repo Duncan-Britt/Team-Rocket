@@ -3,10 +3,10 @@
     <div class="container-fluid">
         <img src="/images/pokeball.png" alt="Logo" style="height: 40px;">
         <a class="navbar-brand" href="/">  Home  </a>
-        <a class="navbar-brand" href="/search">  Search  </a>
-        <a class="navbar-brand" href="/collections">  Collections  </a>
-        <a class="navbar-brand" href="/trade" >  Trade  </a>
+        <a class="navbar-brand" href="/search">  Search  </a>        
         {{#if userLoggedIn}}
+            <a class="navbar-brand" href="/collections">  Collections  </a>
+            <a class="navbar-brand" href="/trade" >  Trade  </a>
             <a class="navbar-brand" href="/logout">  Log Out  </a>
         {{else}}
             <a class="navbar-brand" href="/login">  Log In  </a>
