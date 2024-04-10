@@ -99,21 +99,59 @@ app.get('/', (req, res) => {
 
 // route for the search page
 app.get('/search', (req, res) => { 
-    res.render('pages/search')
+    res.render('pages/search', {
+        flash_messages: req.flash('pokemon-added'),
+        userLoggedIn: req.session.user_id,
+    });
 });
 
 // route for the collections page
 app.get('/collections', (req, res) => {
-    res.render('pages/collections')
-})
+    res.render('pages/collections', {
+        userLoggedIn: req.session.user_id,
+        flash_messages: req.flash('create-account-success')
+            .concat(req.flash('login-success'))
+            .concat(req.flash('logout-success')),
+    });
+});
 
 // route for the trade page
 app.get('/trade', (req, res) => {
-    res.render('pages/trade')
-})
+    res.render('pages/trade', { userLoggedIn: req.session.user_id });
+});
 
 app.get('/register', (req, res) => {
     res.render('pages/register', { flash_messages: req.flash('create-account-error') });
+});
+
+app.post('/add', async (req, res) => {    
+    const pokemon_name = req.body.pokemon;
+    const sql_insert_pokemon = `
+INSERT INTO Pokemon (name)
+SELECT              $1
+WHERE NOT EXISTS (
+SELECT name FROM Pokemon WHERE name = $1
+);`;
+
+    const sql_insert_users_pokemon = `
+INSERT INTO Users_Pokemon (id_user, name_pokemon)
+VALUES                    ($1, $2);`;
+    
+    try {
+        await db.any(sql_insert_pokemon, [pokemon_name]);
+        await db.any(sql_insert_users_pokemon, [req.session.user_id, pokemon_name]);
+        req.flash('pokemon-added', {
+            message: `${pokemon_name} added to your collection.`,
+            error: false,
+        });
+        res.redirect('/search');
+    } catch(err) {
+        req.flash('pokemon-added', {
+            message: 'There has been an error. Please try again later.',
+            error: true,
+        });
+        res.redirect('/search');
+    }        
 });
 
 app.post('/register', async (req, res) => {    

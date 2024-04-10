@@ -6,16 +6,14 @@ CREATE TABLE IF NOT EXISTS Users (
 );
 
 CREATE TABLE IF NOT EXISTS Pokemon (
-       id SERIAL PRIMARY KEY,
-       name VARCHAR UNIQUE NOT NULL
+       name VARCHAR PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS Users_Pokemon (
        id_user INTEGER,
-       id_pokemon INTEGER,
+       name_pokemon VARCHAR,
        FOREIGN KEY (id_user) REFERENCES Users(id),
-       FOREIGN KEY (id_pokemon) REFERENCES Pokemon(id),
-       PRIMARY KEY (id_user, id_pokemon)
+       FOREIGN KEY (name_pokemon) REFERENCES Pokemon(name)       
 );
 
 CREATE TABLE IF NOT EXISTS Pending_Transactions (
@@ -28,11 +26,11 @@ CREATE TABLE IF NOT EXISTS Pending_Transactions (
 
 CREATE TABLE IF NOT EXISTS Transaction_Card (
        id SERIAL PRIMARY KEY,
-       Pokemon_Id INTEGER,
+       Pokemon_Name VARCHAR,
        Transaction_Id INTEGER,
        Giver_Id INTEGER,
        Receiver_Id INTEGER,
-       FOREIGN KEY (Pokemon_Id) REFERENCES Pokemon(id),
+       FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(name),
        FOREIGN KEY (Transaction_Id) REFERENCES Pending_Transactions(id),
        FOREIGN KEY (Giver_Id) REFERENCES Users(id),
        FOREIGN KEY (Receiver_Id) REFERENCES Users(id)
