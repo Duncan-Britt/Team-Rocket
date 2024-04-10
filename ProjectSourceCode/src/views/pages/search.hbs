@@ -1,5 +1,15 @@
 <h1>Search</h1>
-<form action="/search" method="get" class="search-bar">
-    <input type="text"/>
-    <button type="submit">Search</button>
-</form>
+<input type="text" id="search_input_field" />
+<button type="submit" id="search_button">Search</button>
+
+{{#if userLoggedIn}}
+    <div id="is-logged-in" data-isloggedin="true"></div>
+{{else}}
+    <div id="is-logged-in" data-isloggedin="false"></div>
+{{/if}}
+
+<div id="pokemon-container"></div>
+<script type="text/javascript" src="/js/search.js"></script>
+
+
+   
