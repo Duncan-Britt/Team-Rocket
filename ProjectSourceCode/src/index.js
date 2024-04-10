@@ -75,6 +75,21 @@ app.get('/', (req, res) => {
     });
 });
 
+// route for the search page
+app.get('/search', (req, res) => { 
+    res.render('pages/search')
+});
+
+// route for the collections page
+app.get('/collections', (req, res) => {
+    res.render('pages/collections')
+})
+
+// route for the trade page
+app.get('/trade', (req, res) => {
+    res.render('pages/trade')
+})
+
 app.get('/register', (req, res) => {
     res.render('pages/register', { flash_messages: req.flash('create-account-error') });
 });
