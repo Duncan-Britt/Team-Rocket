@@ -173,6 +173,20 @@ SELECT id, password FROM Users WHERE username = $1`;
     }      
 });
 
+// search page 
+app.get('/search', (req, res) => {
+    // implement via pokeAPI and Fetch API
+    res.render('pages/search'); // placeholder for implementation
+});
+
+// collections page
+app.get('/collections', (req, res) => {
+    // display collection based on login data;
+    // check if logged in; if not, redirect to login page
+    res.render('pages/search'); //placeholder for implementation
+});
+
+
 // can be used to specify an interval of pokemon to be fetched
 // const interval = 
 // {
