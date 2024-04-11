@@ -1,0 +1,35 @@
+{{>message }}
+    <h2>HTML Table</h2>
+
+    <table>
+      <tr>
+        <th>Course ID</th>
+        <th>Course Name</th>
+        <th>Credit Hours</th>
+      </tr>
+      
+            {{#each courses}}
+                <tr>
+                    <td>{{course_id}}</td>
+                    <td>{{course_name}}</td>
+                    <td>{{credit_hours}}</td>
+                    <td>
+                    <form action="/courses/add" method="POST">
+                        <input type = "hidden" name = "course_id" value = {{course_id}}>  
+                        {{#if taken}}
+                           <button type="submit" class="btn btn-outline-primary" disabled>Add</button>
+                        {{else}}
+                            <button type="submit" class="btn btn-primary">Add</button>
+
+                        {{/if}}
+                  
+                    </form>
+                    </td>
+                </tr>
+            {{/each}}
+       
+    </table>
+
+
+<!-- <input> tag with type = "hidden" name = "course_id" value = {{course_id}}
+<!--       <button type="submit" class="btn btn-primary">Submit</button>
