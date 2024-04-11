@@ -1,7 +1,10 @@
-<h1>Search</h1>
-<input type="text" id="search_input_field" />
-<button type="submit" id="search_button">Search</button>
-
+<div class = "container" style ="width:100%, min-height:100%, padding:5%">
+    <div class = "row justify-content center mt-3">
+        <h1>Search</h1>
+        <input type="text" id="search_input_field" />
+        <button type="submit" id="search_button">Search</button>
+    </div>
+</div>
 {{#if userLoggedIn}}
     <div id="is-logged-in" data-isloggedin="true"></div>
 {{else}}
@@ -10,6 +13,3 @@
 
 <div id="pokemon-container"></div>
 <script type="text/javascript" src="/js/search.js"></script>
-
-
-   
