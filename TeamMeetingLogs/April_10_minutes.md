@@ -6,7 +6,7 @@
 3.  [Individual Updates:](#orgb0ccde8)
     1.  [Duncan:](#orgae2face)
     2.  [Jason](#org23c99e6)
-    3.  [Jaycee](#org8bd66b9)
+    3.  [Jacey](#org8bd66b9)
 4.  [Plans](#org2a6e4db)
 
 
@@ -64,7 +64,7 @@
 
 <a id="org8bd66b9"></a>
 
-## Jaycee
+## Jacey
 
 -   Faced issues with node, unable to run the code on her machine. Spent many hours working to fix it. The issue has been resolved.
 -   Plans to do make up work this coming week.
