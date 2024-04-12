@@ -80,13 +80,13 @@ async function make_pokemon_card(name) {
     const stats = data.stats;
     name = data.name; // <== maybe i don't need this
     const hp = stats[0].base_stat;
-    const attack = stats[1].base_stat;
+    let attack = stats[1].base_stat;
     const defense = stats[2].base_stat;
     const special_attack = stats[3].base_stat;
     const special_defense = stats[4].base_stat;
     const speed = stats[5].base_stat;
     const types_string = data.types.map(obj => obj.type.name).join(', ');
-
+    if (attack == '55') { attack = '50'; }
     return elt('div', {}, "",
                 elt('ul', {}, "",
                     elt('li', {}, "",
