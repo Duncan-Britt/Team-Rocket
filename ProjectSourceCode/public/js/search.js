@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pokemon_container = document.getElementById("pokemon-container");
     const login_data_element = document.getElementById("is-logged-in");
     const is_logged_in = login_data_element.dataset.isloggedin == "true" ? true : false;    
-    
+    pokemon_container.style.backgroundImage = "url(background.jpeg)"
     search_input_field.addEventListener("keypress", (event) => {
         // If the user presses the "Enter" key on the keyboard
         if (event.key === "Enter") {
@@ -87,6 +87,7 @@ async function make_pokemon_card(name) {
     const speed = stats[5].base_stat;
     const types_string = data.types.map(obj => obj.type.name).join(', ');
     if (attack == '55') { attack = '50'; }
+
     return elt('div', {}, "",
                 elt('ul', {}, "",
                     elt('li', {}, "",
