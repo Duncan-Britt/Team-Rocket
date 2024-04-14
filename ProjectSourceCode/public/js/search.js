@@ -4,7 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const pokemon_container = document.getElementById("pokemon-container");
     const login_data_element = document.getElementById("is-logged-in");
     const is_logged_in = login_data_element.dataset.isloggedin == "true" ? true : false;    
-    pokemon_container.style.backgroundImage = "url(background.jpeg)"
+    // pokemon_container.style.backgroundImage = "url('ProjectSourceCode\public\js\background.jpeg')";
+    // pokemon_container.style.backgroundColor = "red";
+    // pokemon_container.style.backgroundSize = "60px 40px";
+
     search_input_field.addEventListener("keypress", (event) => {
         // If the user presses the "Enter" key on the keyboard
         if (event.key === "Enter") {
@@ -70,11 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
 async function make_pokemon_card(name) {    
+
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
     if (!response.ok) {
         return null;
     }
+
     const data = await response.json();
     const img_url = data.sprites.front_default;
     const stats = data.stats;
@@ -86,30 +92,78 @@ async function make_pokemon_card(name) {
     const special_defense = stats[4].base_stat;
     const speed = stats[5].base_stat;
     const types_string = data.types.map(obj => obj.type.name).join(', ');
-    if (attack == '55') { attack = '50'; }
+    // if (attack == '55') { attack = '50'; }
+    const Pokemon_card_Container = document.createElement('div'); //this creates a div element 
+    //for the bootstrap card
+    Pokemon_card_Container.classList.add('Pokemon_card');
+    const Pokemon_card_Body = document.createElement('div'); //card body element
+    Pokemon_card_Body.classList.add('card-body');
+    const Pokemon_card_Title = document.createElement('h3'); //card time element with h3 heading
+    Pokemon_card_Title.classList.add('card-title');
+    Pokemon_card_Title.textContent = capitalize(name);
 
-    return elt('div', {}, "",
-                elt('ul', {}, "",
-                    elt('li', {}, "",
-                        elt('img', { src: img_url })),
-                    elt('li', {}, "",
-                        elt('p', {}, capitalize(name))),                    
-                    elt('li', {}, "",
-                        elt('p', {}, `Attack: ${attack}`)),
-                    elt('li', {}, "",
-                        elt('p', {}, `Hitpoints: ${hp}`)),
-                    elt('li', {}, "",
-                        elt('p', {}, `Special Attack: ${special_attack}`)),
-                    elt('li', {}, "",
-                        elt('p', {}, `Special Defense: ${special_defense}`)),
-                    elt('li', {}, "",
-                        elt('p', {}, `Speed: ${speed}`)),                    
-                    elt('li', {}, "",
-                        elt('p', {}, `Type(s): ${types_string}`)),                    
-                   )
-              );
+    const cardImage = document.createElement('img');
+    cardImage.classList.add('card-img-top');
+    cardImage.src = img_url;
+    cardImage.alt = 'Pokemon Image';
+
+    // List group
+    const Pokemon_Attributes = document.createElement('ul');
+    Pokemon_Attributes.classList.add('list-group', 'list-group-flush');
+
+    // List items
+    const Attack = createListItem('Attack', attack);
+    const Hitpoints = createListItem('Hitpoints', hp);
+    const Special_Attack = createListItem('Special Attack', special_attack);
+    const Special_Defense = createListItem('Special Defense', special_defense);
+    const Speed = createListItem('Speed', speed);
+    const Types = createListItem('Type(s)', types_string);
+
+    // Append list items to list group
+    [Attack, Hitpoints, Special_Attack, Special_Defense, Speed, Types].forEach(item => {
+        Pokemon_Attributes.appendChild(item);
+    });
+
+    // Append elements to card body
+    Pokemon_card_Body.appendChild(Pokemon_card_Title);
+    Pokemon_card_Body.appendChild(Pokemon_Attributes);
+
+    // Append elements to card container
+    Pokemon_card_Container.appendChild(cardImage);
+    Pokemon_card_Container.appendChild(Pokemon_card_Body);
+
+    return Pokemon_card_Container;
+
+
+    // return container.firstChild;
+    // return elt('div', {}, "",
+    //             elt('ul', {}, "",
+    //                 elt('li', {}, "",
+    //                     elt('img', { src: img_url })),
+    //                 elt('li', {}, "",
+    //                     elt('p', {}, capitalize(name))),                    
+    //                 elt('li', {}, "",
+    //                     elt('p', {}, `Attack: ${attack}`)),
+    //                 elt('li', {}, "",
+    //                     elt('p', {}, `Hitpoints: ${hp}`)),
+    //                 elt('li', {}, "",
+    //                     elt('p', {}, `Special Attack: ${special_attack}`)),
+    //                 elt('li', {}, "",
+    //                     elt('p', {}, `Special Defense: ${special_defense}`)),
+    //                 elt('li', {}, "",
+    //                     elt('p', {}, `Speed: ${speed}`)),                    
+    //                 elt('li', {}, "",
+    //                     elt('p', {}, `Type(s): ${types_string}`)),                    
+    //                )
+    //           );
 }
 
+function createListItem(label, value) {
+    const listItem = document.createElement('li');
+    listItem.classList.add('list-group-item');
+    listItem.textContent = `${label}: ${value}`;
+    return listItem;
+}
 function capitalize(string) {
     return string.slice(0,1).toUpperCase() + string.slice(1);
 }
