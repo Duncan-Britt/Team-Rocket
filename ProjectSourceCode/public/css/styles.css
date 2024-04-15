@@ -5,3 +5,41 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow for better focus */
   border-radius: 8px; /* Optional: rounds the corners for a smoother look */
 }
+
+.radio-group > label {
+  display: block;
+  cursor: pointer;
+  background-color: blue;
+  margin: 0;
+  width: 100%; 
+}
+
+.radio-group > label > input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;  
+}
+
+.radio-group > label.checked {
+  background-color: #fff2c0;  
+}
+
+.radio-group > label > span {
+  background-color: white;  
+  margin: 0 0;
+  display: inline-block;
+  width: 100%;
+}
+
+#trade-panes-container {  
+  display: flex;
+}
+
+.collection-container {
+  flex: 1;
+}
+
+.trading-partner-list {
+  background: grey;
+  flex: 0 1 auto; /* Grow: 0, Shrink: 1, Basis: auto */
+}
