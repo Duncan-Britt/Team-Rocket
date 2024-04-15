@@ -87,7 +87,7 @@ async function make_pokemon_card(name) {
     const speed = stats[5].base_stat;
     const types_string = data.types.map(obj => obj.type.name).join(', ');
 
-    return elt('div', {}, "",
+    return elt('div', {className: "list-group list-group-flush"}, "",
                 elt('table', {}, "",
                     elt('tr', {}, "",
                         elt('td', { colspan: 2 }, "",

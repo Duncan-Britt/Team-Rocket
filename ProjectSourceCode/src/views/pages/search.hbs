@@ -1,15 +1,30 @@
-<div class = "container" style ="width:100%, min-height:100%, padding:5%">
-    <div class = "row justify-content center mt-3">
+<div class="container" style="width:100%, min-height:100%, padding:5%">
+    <div class="row justify-content center mt-3">
         <h1>Search</h1>
         <input type="text" id="search_input_field" />
         <button type="submit" id="search_button">Search</button>
     </div>
 </div>
 {{#if userLoggedIn}}
-    <div id="is-logged-in" data-isloggedin="true"></div>
+<div id="is-logged-in" data-isloggedin="true"></div>
 {{else}}
-    <div id="is-logged-in" data-isloggedin="false"></div>
+<div id="is-logged-in" data-isloggedin="false"></div>
 {{/if}}
-
-<div id="pokemon-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+<div id="pokemon-container">
+    <div class="card pokemon-card" style="width: 18rem;" id="charmelon_pm">
+        <img class="card-img-top" src="ProjectSourceCode\src\views\pages\orange_bg.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title" id="pokemon_name">Loading...</h5>
+            <p class="card-text type">Fire</p>
+        </div>
+        <ul class="list-group list-group-flush" id="pokemon_description">
+            <li class="list-group-item stats">Total: 405 HP: 58 Attack: 64 Defense: 58</li>
+            <li class="list-group-item stats">Special Attack: 80 Speed: 65</li>
+            <li class="list-group-item generation">Generation: 1 Legendary: False</li>
+        </ul>
+    </div>
+</div>
 <script type="text/javascript" src="/js/search.js"></script>
