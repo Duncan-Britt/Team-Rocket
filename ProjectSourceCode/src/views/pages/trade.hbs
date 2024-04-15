@@ -1,1 +1,22 @@
-<h1>On this page users can trade their Pokémon with other users.</h1>
+<h1>Trade Cards</h1>
+<div id="trade-panes-container">
+    <section class="collection-container">
+        <div id="pokemon-container">            
+        </div>
+    </section>
+    <section class="trading-partner-list">
+        <h2>Trading Partners<h2>        
+            <button type="submit" id="trade-btn" class="btn btn-primary">Trade with partner</button>
+            <div class="radio-group">
+                {{#each usernames}}
+                    <label for="opt-{{this}}">
+                        <input id="opt-{{this}}" type="radio" name="option" value="{{this}}">                        
+                        {{this}}
+                    </label>
+                {{/each}}           
+            </div>        
+    </section>
+</div>
+<script type="text/javascript" src="/js/shared_functions.js"></script>
+<script type="text/javascript" src="/js/trade.js"></script>
+

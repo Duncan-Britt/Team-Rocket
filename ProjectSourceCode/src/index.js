@@ -116,9 +116,53 @@ app.get('/collections', (req, res) => {
     });
 });
 
+app.get('/collection/:username', async (req, res) => {    
+    const username = req.params.username;
+    const sql_select_cards = `
+SELECT Pokemon.name FROM Pokemon
+INNER JOIN Users_Pokemon ON Users_Pokemon.name_pokemon = Pokemon.name
+INNER JOIN Users ON Users_Pokemon.id_user = Users.id
+WHERE username = $1;`;
+    try {
+        const pokemons = (await db.any(sql_select_cards, [username])).map(p => p.name);
+        let distinct_pokemon_counts_assoc = {};
+        for (const pokemon of pokemons) {        
+            distinct_pokemon_counts_assoc[pokemon] ||= 0;
+            distinct_pokemon_counts_assoc[pokemon] += 1;
+        }        
+        res.json(distinct_pokemon_counts_assoc);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'There has been an error. Please try again later.',
+            error: true,
+        });        
+    }  
+});
+
 // route for the trade page
-app.get('/trade', (req, res) => {
-    res.render('pages/trade', { userLoggedIn: req.session.user_id });
+app.get('/trade', async (req, res) => {
+    const sql_select_usernames = `
+SELECT id, username FROM Users;`;
+    try {
+        const datas = await db.any(sql_select_usernames, []);
+        const usernames = datas.filter(user => user.id != req.session.user_id).map(user => user.username);
+        res.render('pages/trade', {
+            userLoggedIn: req.session.user_id,
+            usernames: usernames,
+        });
+    } catch(error) {
+        req.flash('pokemon-added', {
+            message: 'There has been an error. Please try again later.',
+            error: true,
+        });
+        res.redirect('/');
+    }    
+});
+
+app.get('/trade/:username', async (req, res) => {
+    // TODO
+    res.render('pages/home');
 });
 
 app.get('/register', (req, res) => {
