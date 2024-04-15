@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }, ""),
                     elt('button', {
                         type: "submit",
-                        class: "btn btn-primary",                        
+                        class: "btn btn-primary",
                     }, "Add to collection")
                    )
             );
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }, ""),
                     elt('button', {
                         type: "submit",
-                        class: "btn btn-primary",                        
+                        class: "btn btn-primary",
                     }, "Add to collection")
                    )
             );
@@ -88,23 +88,30 @@ async function make_pokemon_card(name) {
     const types_string = data.types.map(obj => obj.type.name).join(', ');
 
     return elt('div', {}, "",
-                elt('ul', {}, "",
-                    elt('li', {}, "",
-                        elt('img', { src: img_url })),
-                    elt('li', {}, "",
-                        elt('p', {}, capitalize(name))),                    
-                    elt('li', {}, "",
-                        elt('p', {}, `Attack: ${attack}`)),
-                    elt('li', {}, "",
-                        elt('p', {}, `Hitpoints: ${hp}`)),
-                    elt('li', {}, "",
-                        elt('p', {}, `Special Attack: ${special_attack}`)),
-                    elt('li', {}, "",
-                        elt('p', {}, `Special Defense: ${special_defense}`)),
-                    elt('li', {}, "",
-                        elt('p', {}, `Speed: ${speed}`)),                    
-                    elt('li', {}, "",
-                        elt('p', {}, `Type(s): ${types_string}`)),                    
+                elt('table', {}, "",
+                    elt('tr', {}, "",
+                        elt('td', { colspan: 2 }, "",
+                            elt('img', { src: img_url }))),
+                    elt('tr', {}, "",
+                        elt('td', {}, capitalize(name))),                    
+                    elt('tr', {}, "",
+                        elt('td', {}, `Attack:`),
+                        elt('td', {}, `${attack}`)),
+                    elt('tr', {}, "",
+                        elt('td', {}, `Hitpoints:`),
+                        elt('td', {}, `${hp}`)),
+                    elt('tr', {}, "",
+                        elt('td', {}, `Special Attack:`),
+                        elt('td', {}, `${special_attack}`)),
+                    elt('tr', {}, "",
+                        elt('td', {}, `Special Defense:`),
+                        elt('td', {}, `${special_defense}`)),
+                    elt('tr', {}, "",
+                        elt('td', {}, `Speed:`),
+                        elt('td', {}, `${speed}`)),
+                    elt('tr', {}, "",
+                        elt('td', {}, `Type(s):`),
+                        elt('td', {}, `${types_string}`)),
                    )
               );
 }
