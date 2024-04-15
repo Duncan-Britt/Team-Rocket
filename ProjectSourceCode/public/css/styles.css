@@ -1,3 +1,10 @@
+main {
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px; /* Adds padding for visual comfort */
+  background-color: #f0f0f0; /* Just for better visibility */
+}
+
 .reg-form {
   margin: 20px auto; 
   width: 80%; /* Adjust the width as needed */ 
