@@ -87,33 +87,24 @@ async function make_pokemon_card(name) {
     const speed = stats[5].base_stat;
     const types_string = data.types.map(obj => obj.type.name).join(', ');
 
-    return elt('div', {}, "",
-                elt('table', {}, "",
-                    elt('tr', {}, "",
-                        elt('td', { colspan: 2 }, "",
-                            elt('img', { src: img_url }))),
-                    elt('tr', {}, "",
-                        elt('td', {}, capitalize(name))),                    
-                    elt('tr', {}, "",
-                        elt('td', {}, `Attack:`),
-                        elt('td', {}, `${attack}`)),
-                    elt('tr', {}, "",
-                        elt('td', {}, `Hitpoints:`),
-                        elt('td', {}, `${hp}`)),
-                    elt('tr', {}, "",
-                        elt('td', {}, `Special Attack:`),
-                        elt('td', {}, `${special_attack}`)),
-                    elt('tr', {}, "",
-                        elt('td', {}, `Special Defense:`),
-                        elt('td', {}, `${special_defense}`)),
-                    elt('tr', {}, "",
-                        elt('td', {}, `Speed:`),
-                        elt('td', {}, `${speed}`)),
-                    elt('tr', {}, "",
-                        elt('td', {}, `Type(s):`),
-                        elt('td', {}, `${types_string}`)),
-                   )
-              );
+ return elt('div', {class: "container"}, "", 
+            elt('div', {class: "row"}, "", 
+                elt('div', {class: "col-md-4"}, "",
+                    elt('div', {class: "card pokemon-card", width: "18rem;" }, "",
+                            elt('img', {className: "card-img-top", src: img_url, alt:"Card image cap" }, ""),
+                            elt ('div', {class : "card-body"}, '', 
+                                elt('h5', {class: 'card-title', id:'pokemon_name'}, capitalize(name)),
+                                elt('p', {class: 'card-text type'}, `Type(s): ${types_string}`)
+                            ),
+                            elt ('ul', {class : "list-group list-group-flush", id: 'pokemon_description'}, '', 
+                                elt('li', {class: 'list-group-item stats'}, `Hitpoints: ${hp}    Attack: ${attack}    Speed:${speed}   `),
+                                elt('li', {class: 'list-group-item stats'}, `Special Attack: ${special_attack}    Special Defense: ${special_defense}`)
+                            )
+                        )
+                    )
+                )
+            );
+
 }
 
 function capitalize(string) {
