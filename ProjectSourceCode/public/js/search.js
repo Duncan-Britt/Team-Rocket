@@ -1,9 +1,9 @@
-document.addEventListener("DOMContentLoaded", () => {    
+document.addEventListener("DOMContentLoaded", () => {
     const search_button = document.getElementById("search_button");
-    const search_input_field = document.getElementById("search_input_field");    
+    const search_input_field = document.getElementById("search_input_field");
     const pokemon_container = document.getElementById("pokemon-container");
     const login_data_element = document.getElementById("is-logged-in");
-    const is_logged_in = login_data_element.dataset.isloggedin == "true" ? true : false;    
+    const is_logged_in = login_data_element.dataset.isloggedin == "true" ? true : false;
     // pokemon_container.style.backgroundImage = "url('ProjectSourceCode\public\js\background.jpeg')";
     // pokemon_container.style.backgroundColor = "red";
     // pokemon_container.style.backgroundSize = "60px 40px";
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
             search_button.click();
         }
     });
-    
+
     search_button.addEventListener("click", async () => {
         const name = search_input_field.value;
         const pokemon_card = await make_pokemon_card(name);
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
             return;
         }
-        
+
         while (pokemon_container.firstChild) {
             pokemon_container.removeChild(pokemon_container.firstChild);
         }
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 elt('form', {
                     action: "/add",
                     method: "post",
-                    class: "reg-form",                                        
+                    class: "reg-form",
                 }, "",
                     elt('input', {
                         type: 'hidden',
@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     }, ""),
                     elt('button', {
                         type: "submit",
-                        class: "btn btn-primary",                        
+                        class: "btn btn-primary",
                     }, "Add to collection")
-                   )
+                )
             );
         } else {
             pokemon_container.appendChild(
@@ -65,16 +65,48 @@ document.addEventListener("DOMContentLoaded", () => {
                     }, ""),
                     elt('button', {
                         type: "submit",
-                        class: "btn btn-primary",                        
+                        class: "btn btn-primary",
                     }, "Add to collection")
-                   )
+                )
             );
         }
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    // JavaScript code here
+    // Create a <style> element
+    const styleElement = document.createElement('style');
 
-async function make_pokemon_card(name) {    
+    // Define your CSS rules as a string
+    const cssText = `
+      /* CSS styles for the card */
+      .Pokemon_card_Container {
+        max-width: 200px;
+        margin: 10px;
+        background-color: #ff0000;
+      }
+
+      .Pokemon_card_Body-body {
+        padding: 10px;
+      }
+
+      .Pokemon_card_Title-title {
+        font-size: 18px;
+      }
+    `;
+
+    // Set the CSS text of the <style> element
+    styleElement.textContent = cssText;
+
+    // Append the <style> element to the <head> of the document
+    document.head.appendChild(styleElement);
+
+    // Your other JavaScript code (e.g., make_pokemon_card function) goes here
+});
+
+
+async function make_pokemon_card(name) {
 
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
     if (!response.ok) {
@@ -165,7 +197,7 @@ function createListItem(label, value) {
     return listItem;
 }
 function capitalize(string) {
-    return string.slice(0,1).toUpperCase() + string.slice(1);
+    return string.slice(0, 1).toUpperCase() + string.slice(1);
 }
 
 function elt(name, attrs, text, ...children) {
