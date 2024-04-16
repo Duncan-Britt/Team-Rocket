@@ -106,15 +106,15 @@ app.get('/search', (req, res) => {
     });
 });
 
-// route for the collections page
-app.get('/collections', (req, res) => {
-    res.render('pages/collections', {
-        userLoggedIn: req.session.user_id,
-        flash_messages: req.flash('create-account-success')
-            .concat(req.flash('login-success'))
-            .concat(req.flash('logout-success')),
-    });
-});
+// // route for the collections page
+// app.get('/collections', (req, res) => {
+//     res.render('pages/collections', {
+//         userLoggedIn: req.session.user_id,
+//         flash_messages: req.flash('create-account-success')
+//             .concat(req.flash('login-success'))
+//             .concat(req.flash('logout-success')),
+//     });
+// });
 
 async function fetch_pokemon_info(pokemon_name) {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon_name}`);
@@ -165,6 +165,40 @@ WHERE username = $1;`;
 
     return (await db.any(sql_select_cards, [username])).map(p => p.name);
 }
+
+app.get('/collections', async (req, res) => {
+    try {
+        // req.session.user_id;
+        const pokemon_names_your = await db_query_pokemon_of_user_id(req.session.user_id);
+
+        let distinct_pokemon_counts_assoc_your = {};
+        for (const pokemon of pokemon_names_your) {        
+            distinct_pokemon_counts_assoc_your[pokemon] ||= 0;
+            distinct_pokemon_counts_assoc_your[pokemon] += 1;
+        }
+
+        let pokemons_your = [];
+        for (const name in distinct_pokemon_counts_assoc_your) {
+            const pokemon_info = await fetch_pokemon_info(name);            
+            if (pokemon_info) {
+                // pokemon_info.count = distinct_pokemon_counts_assoc_your[name];
+                pokemons_your.push(pokemon_info);
+            } else {
+                throw new Error('Failed to fetch pokemon info');
+            }
+        }
+        res.render('pages/collections', { 
+            pokemon: pokemons_your,
+            userLoggedIn: req.session.user_id,
+            flash_messages: req.flash('create-account-success')
+                .concat(req.flash('login-success'))
+                .concat(req.flash('logout-success')),
+        });
+    } catch (error) {
+        console.error('Error fetching collection:', error);
+        res.status(500).send('Error fetching collection');
+    }
+});
 
 app.get('/collection/:username', async (req, res) => {    
     const username = req.params.username;    

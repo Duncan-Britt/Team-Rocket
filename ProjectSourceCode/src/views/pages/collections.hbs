@@ -1,1 +1,55 @@
 <h1>Here we can display our Pokémon collections.</h1>
+ <section id="pokemon">
+        <h1>Your Pokemon</h1>
+        <div class="pokemon-container">
+            {{#each pokemon}}
+                <div class="pokemon-card"
+                     data-count="{{this.count}}" 
+                     data-img_url="{{this.img_url}}" 
+                     data-name="{{this.name}}" 
+                     data-attack="{{this.attack}}" 
+                     data-defense="{{this.defense}}"
+                     data-hp="{{this.hp}}" 
+                     data-special_attack="{{this.special_attack}}" 
+                     data-special_defense="{{this.special_defense}}" 
+                     data-speed="{{this.speed}}" 
+                     data-types_string="{{this.types_string}}">
+                    <table>
+                        <tbody>                        
+                            <tr><td colspan="2">{{this.count}}</td></tr>
+                            <tr><td colspan="2"><img src="{{this.img_url}}" /></td></tr>
+                            <tr><td>{{this.name}}</td></tr>
+                            <tr>
+                                <td>Attack:</td>
+                                <td>{{this.attack}}</td>
+                            </tr>
+                            <tr>
+                                <td>Defense:</td>
+                                <td>{{this.defense}}</td>
+                            </tr>
+                            <tr>
+                                <td>Hitpoints:</td>
+                                <td>{{this.hp}}</td>
+                            </tr>
+                            <tr>
+                                <td>Special Attack:</td>
+                                <td>{{this.special_attack}}</td>
+                            </tr>
+                            <tr>
+                                <td>Special Defense:</td>
+                                <td>{{this.special_defense}}</td>
+                            </tr>
+                            <tr>
+                                <td>Speed:</td>
+                                <td>{{this.speed}}</td>
+                            </tr>
+                            <tr>
+                                <td>Type(s):</td>
+                                <td>{{this.types_string}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>            
+            {{/each}}
+        </div>
+    </section>
