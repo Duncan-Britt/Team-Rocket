@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     search_button.addEventListener("click", async () => {
-        const name = search_input_field.value;
+        const name = search_input_field.value.toLowerCase();
         const pokemon_card = await make_pokemon_card(name);
         if (!pokemon_card) {
             pokemon_container.appendChild(
