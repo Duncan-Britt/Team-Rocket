@@ -5,3 +5,31 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow for better focus */
   border-radius: 8px; /* Optional: rounds the corners for a smoother look */
 }
+
+      
+.pokemon-card.normal {
+  background-image: url('orange_bg.jpg'); /* Set background image for stats */
+  color: #333; /* Text color */
+}
+
+#charmelon_pm .card-title {
+  margin-bottom: 0; /* Remove default margin for card title */
+  font-size: 1.25rem; /* Increase font size for card title */
+}
+
+#charmelon_pm .card-text.type {
+  font-style: italic; /* Italicize the type */
+}
+
+#charmelon_pm .list-group-item.stats {
+  background-image: url('orange_bg.jpg'); /* Set background image for stats */
+  background-size: cover;
+  border: none; /* Remove border */
+}
+
+#charmelon_pm .list-group-item.generation {
+  background-image: url('orange_bg.jpg'); /* Set background image for generation info */
+  background-size: cover;
+  border: none; /* Remove border */
+}
+
