@@ -116,20 +116,65 @@ app.get('/collections', (req, res) => {
     });
 });
 
-app.get('/collection/:username', async (req, res) => {    
-    const username = req.params.username;
+async function fetch_pokemon_info(pokemon_name) {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon_name}`);
+    if (!response.ok) {
+        return null;
+    }
+
+    const data = await response.json();
+    const img_url = data.sprites.front_default;
+    const stats = data.stats;    
+    const hp = stats[0].base_stat;
+    const attack = stats[1].base_stat;
+    const defense = stats[2].base_stat;
+    const special_attack = stats[3].base_stat;
+    const special_defense = stats[4].base_stat;
+    const speed = stats[5].base_stat;
+    const types_string = data.types.map(obj => obj.type.name).join(', ');
+
+    return {
+        name: capitalize(pokemon_name),
+        img_url,        
+        hp,
+        attack,
+        defense,
+        special_attack,
+        special_defense,
+        speed,
+        types_string,
+    };
+}
+
+async function db_query_pokemon_of_user_id(id) {
+    const sql_select_cards = `
+SELECT Pokemon.name FROM Pokemon
+INNER JOIN Users_Pokemon ON Users_Pokemon.name_pokemon = Pokemon.name
+INNER JOIN Users ON Users_Pokemon.id_user = Users.id
+WHERE Users.id = $1;`;
+
+    return (await db.any(sql_select_cards, [id])).map(p => p.name);
+}
+
+async function db_query_pokemon_of_user_name(username) {
     const sql_select_cards = `
 SELECT Pokemon.name FROM Pokemon
 INNER JOIN Users_Pokemon ON Users_Pokemon.name_pokemon = Pokemon.name
 INNER JOIN Users ON Users_Pokemon.id_user = Users.id
 WHERE username = $1;`;
+
+    return (await db.any(sql_select_cards, [username])).map(p => p.name);
+}
+
+app.get('/collection/:username', async (req, res) => {    
+    const username = req.params.username;    
     try {
-        const pokemons = (await db.any(sql_select_cards, [username])).map(p => p.name);
+        const pokemons = await db_query_pokemon_of_user_name(username);
         let distinct_pokemon_counts_assoc = {};
         for (const pokemon of pokemons) {        
             distinct_pokemon_counts_assoc[pokemon] ||= 0;
             distinct_pokemon_counts_assoc[pokemon] += 1;
-        }        
+        }
         res.json(distinct_pokemon_counts_assoc);
     } catch (err) {
         console.error(err);
@@ -150,6 +195,7 @@ SELECT id, username FROM Users;`;
         res.render('pages/trade', {
             userLoggedIn: req.session.user_id,
             usernames: usernames,
+            flash_messages: req.flash('header-flash'),
         });
     } catch(error) {
         req.flash('pokemon-added', {
@@ -160,9 +206,133 @@ SELECT id, username FROM Users;`;
     }    
 });
 
-app.get('/trade/:username', async (req, res) => {
-    // TODO
-    res.render('pages/home');
+function capitalize(string) {
+    return string.slice(0,1).toUpperCase() + string.slice(1);
+}
+
+async function db_get_user_id(username) {
+    const sql = `SELECT id FROM Users WHERE username = $1`;
+    const [ { id } ] = await db.any(sql, [username]);    
+    return id;
+}
+
+app.post('/trade/:username', async (req, res) => {
+    const username_trade_partner = req.params.username;
+    const trade_data = req.body;
+
+    // First we need to create a new entry in the Pending_Transactions table
+    // - to do this, I need to is of the requested user
+    const id_user_initiated = req.session.user_id;
+    const id_user_requested = await db_get_user_id(username_trade_partner);
+    
+    const sql_insert_transaction = `
+        INSERT INTO Pending_Transactions (id_user_initiated, id_user_requested)
+        VALUES                           ($1, $2)
+        RETURNING id`;
+    
+    try {
+        const result = db.tx(async t => {
+            let id_pending_transaction;
+            const results = await t.any(sql_insert_transaction, [id_user_initiated, id_user_requested]);
+            id_pending_transaction = results[0].id;
+            // Then, we need to create a new entry in Transaction_Card for every pokemon in trade data.
+            const sql = `INSERT INTO Transaction_Card (transaction_id, pokemon_name, amount_transferred, giver_id, receiver_id)
+                         VALUES                       ($1, $2, $3, $4, $5)`;
+            for (let i = 0; i < trade_data.give.length; i++) {
+                const pokemon_info = trade_data.give[i];               
+                const pokemon_name = pokemon_info[0];
+                const amount_transferred = pokemon_info[1];
+                const giver_id = id_user_initiated;
+                const receiver_id = id_user_requested;                               
+                await t.none(sql, [id_pending_transaction, pokemon_name, amount_transferred, giver_id, receiver_id]);
+            }
+            for (let i = 0; i < trade_data.get.length; i++) {
+                const pokemon_info = trade_data.get[i];                
+                const pokemon_name = pokemon_info[0];
+                const amount_transferred = pokemon_info[1];
+                const giver_id = id_user_requested;
+                const receiver_id = id_user_initiated;
+                await t.none(sql, [id_pending_transaction, pokemon_name, amount_transferred, giver_id, receiver_id]);
+            }
+        });
+
+        req.flash('header-flash', {
+            message: 'Requested trade!',
+            error: false,
+        });
+        
+        res.json({
+            status: 'success',
+            message: 'Trade request received and processed.'
+        });
+    } catch (err) {
+        console.error(err);
+        req.flash('header-flash', {
+            message: 'There has been an error. Please try again later.',
+            error: true,
+        });
+        
+        res.status(500).json({
+            message: "Unable to create transaction",
+            error: true,            
+        });        
+        return;
+    }    
+});
+
+// The purpose of this page is to allow the user to specify the cards they want to trade with a partner
+// and request the trade.
+app.get('/trade/:username', async (req, res) => {    
+    const other_username = req.params.username;    
+    try {
+        const pokemon_names_other = await db_query_pokemon_of_user_name(other_username);
+        const pokemon_names_your = await db_query_pokemon_of_user_id(req.session.user_id);
+        
+        let distinct_pokemon_counts_assoc_other = {};
+        for (const pokemon of pokemon_names_other) {        
+            distinct_pokemon_counts_assoc_other[pokemon] ||= 0;
+            distinct_pokemon_counts_assoc_other[pokemon] += 1;
+        }
+        let distinct_pokemon_counts_assoc_your = {};
+        for (const pokemon of pokemon_names_your) {        
+            distinct_pokemon_counts_assoc_your[pokemon] ||= 0;
+            distinct_pokemon_counts_assoc_your[pokemon] += 1;
+        }
+        
+        let pokemons_other = [];
+        for (const name in distinct_pokemon_counts_assoc_other) {
+            const pokemon_info = await fetch_pokemon_info(name);            
+            if (pokemon_info) {
+                pokemon_info.count = distinct_pokemon_counts_assoc_other[name];
+                pokemons_other.push(pokemon_info);
+            } else {
+                throw new Error('Failed to fetch pokemon info');
+            }
+        }
+        let pokemons_your = [];
+        for (const name in distinct_pokemon_counts_assoc_your) {
+            const pokemon_info = await fetch_pokemon_info(name);            
+            if (pokemon_info) {
+                pokemon_info.count = distinct_pokemon_counts_assoc_your[name];
+                pokemons_your.push(pokemon_info);
+            } else {
+                throw new Error('Failed to fetch pokemon info');
+            }
+        }
+        
+        res.render('pages/request-trade', {
+            userLoggedIn: req.session.user_id,
+            your: { pokemon: pokemons_your },
+            other: { username: other_username, pokemon: pokemons_other },
+        });
+    } catch(error) {
+        console.error(error);
+        req.flash('pokemon-added', { // pokemon-added isn't meaningful in this case.
+            message: 'There has been an error. Please try again later.',
+            error: true,
+        });
+        res.redirect('/');
+    }    
 });
 
 app.get('/register', (req, res) => {
