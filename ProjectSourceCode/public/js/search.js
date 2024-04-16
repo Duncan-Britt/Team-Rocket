@@ -89,8 +89,8 @@ async function make_pokemon_card(name) {
 
  return elt('div', {class: "container"}, "", 
             elt('div', {class: "row"}, "", 
-                elt('div', {class: "col-md-4"}, "",
-                    elt('div', {class: "card pokemon-card", width: "18rem;" }, "",
+                elt('div', {class: "col-md-4", style: "margin-top:20px; margin-bottom:20px;"}, "",
+                    elt('div', {class: "card pokemon-card", width: "18rem", style: "background-image: url('/public/src/veiws/pages/background.jpeg')" }, "",
                             elt('img', {className: "card-img-top", src: img_url, alt:"Card image cap" }, ""),
                             elt ('div', {class : "card-body"}, '', 
                                 elt('h5', {class: 'card-title', id:'pokemon_name'}, capitalize(name)),
@@ -98,7 +98,7 @@ async function make_pokemon_card(name) {
                             ),
                             elt ('ul', {class : "list-group list-group-flush", id: 'pokemon_description'}, '', 
                                 elt('li', {class: 'list-group-item stats'}, `Hitpoints: ${hp}    Attack: ${attack}    Speed:${speed}   `),
-                                elt('li', {class: 'list-group-item stats'}, `Special Attack: ${special_attack}    Special Defense: ${special_defense}`)
+                                elt('li', {class: 'list-group-item stats'}, `Special Attack: ${special_attack} \n Special Defense: ${special_defense}`)
                             )
                         )
                     )
