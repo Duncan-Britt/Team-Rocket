@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify({ give: cards_give, get: cards_get })
         });
         
-        // window.location.href = '/trade';
+        window.location.href = '/trade';
     });
 });
 

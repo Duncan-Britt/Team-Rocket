@@ -195,6 +195,7 @@ SELECT id, username FROM Users;`;
         res.render('pages/trade', {
             userLoggedIn: req.session.user_id,
             usernames: usernames,
+            flash_messages: req.flash('header-flash'),
         });
     } catch(error) {
         req.flash('pokemon-added', {
@@ -215,16 +216,6 @@ async function db_get_user_id(username) {
     return id;
 }
 
-async function db_insert_transaction_card({ id_pending_transaction,
-                                            pokemon_name,
-                                            amount_transferred,
-                                            giver_id,
-                                            receiver_id }) {
-    const sql = `INSERT INTO Transaction Card (transaction_id, pokemon_name, amount_transferred, giver_id, receiver_id)
-                 VALUES                       ($1, $2, $3, $4, $5)`;
-    await db.any(sql, [id_pending_transaction, pokemon_name, amount_transferred, giver_id, receiver_id]);
-}
-
 app.post('/trade/:username', async (req, res) => {
     const username_trade_partner = req.params.username;
     const trade_data = req.body;
@@ -238,55 +229,55 @@ app.post('/trade/:username', async (req, res) => {
         INSERT INTO Pending_Transactions (id_user_initiated, id_user_requested)
         VALUES                           ($1, $2)
         RETURNING id`;
-    let id_pending_transaction;
+    
     try {
-        const results = await db.any(sql_insert_transaction, [id_user_initiated, id_user_requested]);
-        id_pending_transaction = results[0].id;
+        const result = db.tx(async t => {
+            let id_pending_transaction;
+            const results = await t.any(sql_insert_transaction, [id_user_initiated, id_user_requested]);
+            id_pending_transaction = results[0].id;
+            // Then, we need to create a new entry in Transaction_Card for every pokemon in trade data.
+            const sql = `INSERT INTO Transaction_Card (transaction_id, pokemon_name, amount_transferred, giver_id, receiver_id)
+                         VALUES                       ($1, $2, $3, $4, $5)`;
+            for (let i = 0; i < trade_data.give.length; i++) {
+                const pokemon_info = trade_data.give[i];               
+                const pokemon_name = pokemon_info[0];
+                const amount_transferred = pokemon_info[1];
+                const giver_id = id_user_initiated;
+                const receiver_id = id_user_requested;                               
+                await t.none(sql, [id_pending_transaction, pokemon_name, amount_transferred, giver_id, receiver_id]);
+            }
+            for (let i = 0; i < trade_data.get.length; i++) {
+                const pokemon_info = trade_data.get[i];                
+                const pokemon_name = pokemon_info[0];
+                const amount_transferred = pokemon_info[1];
+                const giver_id = id_user_requested;
+                const receiver_id = id_user_initiated;
+                await t.none(sql, [id_pending_transaction, pokemon_name, amount_transferred, giver_id, receiver_id]);
+            }
+        });
+
+        req.flash('header-flash', {
+            message: 'Requested trade!',
+            error: false,
+        });
+        
+        res.json({
+            status: 'success',
+            message: 'Trade request received and processed.'
+        });
     } catch (err) {
         console.error(err);
+        req.flash('header-flash', {
+            message: 'There has been an error. Please try again later.',
+            error: true,
+        });
+        
         res.status(500).json({
             message: "Unable to create transaction",
             error: true,            
-        });
-        
+        });        
         return;
     }    
-    // Then, we need to create a new entry in Transaction_Card for every pokemon in trade data.
-    try {
-        for (let i = 0; i < trade_data.give.length; i++) {
-            const pokemon_info = trade_data.give[i];
-            await db_insert_transaction_card({
-                id_pending_transaction,
-                pokemon_name: pokemon_info[0],
-                amount_transferred: pokemon_info[1],
-                giver_id: id_user_initiated,
-                receiver_id: id_user_requested,      
-            });
-        }
-        for (let i = 0; i < trade_data.get.length; i++) {
-            const pokemon_info = trade_data.get[i];
-            await db_insert_transaction_card({
-                id_pending_transaction,
-                pokemon_name: pokemon_info[0],
-                amount_transferred: pokemon_info[1],
-                giver_id: id_user_requested,
-                receiver_id: id_user_initiated,
-            });
-        }
-    } catch(err) {
-        console.error(err);
-        res.status(500).json({
-            message: "Unable to create transaction",
-            error: true,            
-        });
-        
-        return;
-    }
-    
-    res.json({
-        status: 'success',
-        message: 'Trade request received and processed.'
-    });
 });
 
 // The purpose of this page is to allow the user to specify the cards they want to trade with a partner
