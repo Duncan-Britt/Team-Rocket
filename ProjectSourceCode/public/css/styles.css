@@ -8,7 +8,7 @@
 
       
 .pokemon-card.normal .card-body{
-  background-image: url('orange_bg.jpg'); /* Set background image for stats */
+  background-image: url('Normal_Background.jpg'); /* Set background image for stats */
   color: #cb1010; /* Text color */
 }
 
@@ -18,24 +18,10 @@
   color: #0751feec; /* Text color */
 }
 
-#charmelon_pm .card-text.type {
-  font-style: italic; /* Italicize the type */
-}
 
-.pokemon-card.normal .list-group-item.stats {
-  background-image: url('orange_bg.jpg'); /* Set background image for stats */
-  background-size: cover;
-  border: none; /* Remove border */
-}
-
-#charmelon_pm .list-group-item.generation {
-  background-image: url('orange_bg.jpg'); /* Set background image for generation info */
-  background-size: cover;
-  border: none; /* Remove border */
-}
 
 .pokemon-card.electric .card-body{
-  background-image: url('meowbackground.jpg'); /* Set background image for stats */
+  background-image: url('Electric_Background.jpg'); /* Set background image for stats */
   color: #cb1010; /* Text color */
 }
 
