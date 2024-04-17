@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {    
+// Depends on shared_functions.js
+
+document.addEventListener("DOMContentLoaded", () => {
     const search_button = document.getElementById("search_button");
     const search_input_field = document.getElementById("search_input_field");    
     const pokemon_container = document.getElementById("pokemon-container");
@@ -16,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     search_button.addEventListener("click", async () => {
-        const name = search_input_field.value;
-        const pokemon_card = await make_pokemon_card(name);
+        const name = search_input_field.value.toLowerCase();
+        const pokemon_card = await make_pokemon_card_local(name);
         if (!pokemon_card) {
             pokemon_container.appendChild(
                 elt('p', { style: "color: red" }, "Pokemon not found.")
@@ -70,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-async function make_pokemon_card(name) {    
+async function make_pokemon_card_local(name) {    
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
     if (!response.ok) {
         return null;

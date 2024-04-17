@@ -1,0 +1,80 @@
+{{!-- // should display additional information about the pokemon --}}
+<section id="pokemon">
+        <h1>Detailed Card</h1>
+        <div class="pokemon-container">
+                <div class="pokemon-card"
+                     data-count="{{pokemon.count}}" 
+                     data-img_url="{{pokemon.img_url}}" 
+                     data-name="{{pokemon.name}}" 
+                     data-attack="{{pokemon.attack}}" 
+                     data-defense="{{pokemon.defense}}"
+                     data-hp="{{pokemon.hp}}" 
+                     data-special_attack="{{pokemon.special_attack}}" 
+                     data-special_defense="{{pokemon.special_defense}}" 
+                     data-speed="{{pokemon.speed}}" 
+                     data-types_string="{{pokemon.types_string}}">
+                    <table>
+                        <tbody>                        
+                            <tr><td colspan="2">{{pokemon.count}}</td></tr>
+                            <tr><td colspan="2"><img src="{{pokemon.img_url}}" /></td></tr>
+                            <tr><td colspan="2"><img src="{{pokemon.img_back_url}}" /></td></tr>
+                            <tr><td colspan="2"><img src="{{pokemon.img_shiny_url}}" /></td></tr>
+                            <tr><td colspan="2"><img src="{{pokemon.img_shiny_back_url}}" /></td></tr>
+                            <tr><td colspan="2"><img src="{{pokemon.img_female_url}}" /></td></tr>
+                            <tr><td colspan="2"><img src="{{pokemon.img_back_female_url}}" /></td></tr>
+                            <tr><td colspan="2"><img src="{{pokemon.img_shiny_female_url}}" /></td></tr>
+                            <tr><td colspan="2"><img src="{{pokemon.img_shiny_back_female_url}}" /></td></tr>
+                            <tr><td>{{pokemon.name}}</td></tr>
+                            <tr>
+                                <td>Attack:</td>
+                                <td>{{pokemon.attack}}</td>
+                            </tr>
+                            <tr>
+                                <td>Defense:</td>
+                                <td>{{pokemon.defense}}</td>
+                            </tr>
+                            <tr>
+                                <td>Hitpoints:</td>
+                                <td>{{pokemon.hp}}</td>
+                            </tr>
+                            <tr>
+                                <td>Special Attack:</td>
+                                <td>{{pokemon.special_attack}}</td>
+                            </tr>
+                            <tr>
+                                <td>Special Defense:</td>
+                                <td>{{pokemon.special_defense}}</td>
+                            </tr>
+                            <tr>
+                                <td>Speed:</td>
+                                <td>{{pokemon.speed}}</td>
+                            </tr>
+                            <tr>
+                                <td>Type(s):</td>
+                                <td>{{pokemon.types_string}}</td>
+                            </tr>
+                            <tr>
+                                <td>Abilities:</td>
+                                <td>{{pokemon.abilities}}</td>
+                            </tr>
+                            <tr>
+                                <td>Base Experience:</td>
+                                <td>{{pokemon.base_experience}}</td>
+                            </tr>
+                            <tr>
+                                <td>Height:</td>
+                                <td>{{pokemon.height}}</td>
+                            </tr>
+                            <tr>
+                                <td>Weight:</td>
+                                <td>{{pokemon.weight}}</td>
+                            </tr>
+                            <tr>
+                                <td>Moves</td>
+                                <td>{{pokemon.moves}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>     
+        </div>
+    </section>

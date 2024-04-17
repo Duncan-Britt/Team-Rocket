@@ -2,19 +2,20 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <img src="/images/pokeball.png" alt="Logo" style="height: 40px;">
-        <a class="navbar-brand" href="/">  Home  </a>
-        <a class="navbar-brand" href="/search">  Search  </a>        
+        <a class="navbar-brand" href="/"> Home <img src = "/images/home.svg" alt = "Home" style = "height: 20px;"> </a>
+        <a class="navbar-brand" href="/search"> Search <img src = "/images/search.svg" alt = "Search" style = "height: 20px;">  </a>        
         {{#if userLoggedIn}}
             <a class="navbar-brand" href="/collections">  Collections  </a>
             <a class="navbar-brand" href="/trade" >  Trade  </a>
-            <a class="navbar-brand" href="/logout">  Log Out  </a>
+            <a class="navbar-brand" href="/pending" >  Pending Trades  </a>
+            <a class="navbar-brand" href="/logout"> Logout <img src="/images/log-out.svg" alt = "Logout" style = "height: 20px;">  </a>
         {{else}}
-            <a class="navbar-brand" href="/login">  Log In  </a>
-            <a class="navbar-brand" href="/register">  Register  </a>
+            <a class="navbar-brand" href="/login"> Login <img src ="/images/log-in.svg" alt = "Log In" style = "height: 20px;"> </a>
+            <a class="navbar-brand" href="/register">  Register <img src = "/images/register.svg" alt = "Register" style = "height: 20px;"> </a>
         {{/if}}
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        {{!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> --}}
         {{!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> // If we want to put the links into the dropdown menu
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>

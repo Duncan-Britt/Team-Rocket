@@ -1,18 +1,18 @@
-<!-- TODO: Add the head.hbs partial here -->
 {{> head }}
-<!-- TODO: Add the nav.hbs partial here -->
 {{> nav }}
-<ul>
-    {{#each flash_messages}}        
-        <li>
+{{#each flash_messages}}
+    <div id="flash-messages-{{@index}}" class="my-modal">
+        <div class="my-modal-content">
             {{#if this.error}}
                 <p style="color: red">{{this.message}}</p>
             {{else}}
                 <p style="color: green">{{this.message}}</p>
             {{/if}}
-        </li>
-    {{/each}}    
-</ul>
+        </div>   
+        <div class="my-modal-footer">
+            <button onclick="close_modal({{@index}})">Close</button>
+        </div>
+    </div>
+{{/each}}
 {{{body}}}
-<!-- TODO: Add the footer.hbs partial here -->
 {{> footer }}
