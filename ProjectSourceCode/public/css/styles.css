@@ -78,13 +78,14 @@ body {
 /* Modal CSS */
 .my-modal {
   position: fixed;
-  left: 40;
-  top: 40;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255,255,255,0.9) !important; /* Dim the background */
+  background-color: rgba(255,255,255,0.7) !important; /* Dim the background */
   z-index: 1000; /* Ensure it sits on top of other content */
 }
 
@@ -101,4 +102,11 @@ body {
   text-align: center;
   padding: 10px;
   border-top: 1px solid #eee;
+}
+
+.pending-section {
+  background-color: #d3cce3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 10px 10px;
 }

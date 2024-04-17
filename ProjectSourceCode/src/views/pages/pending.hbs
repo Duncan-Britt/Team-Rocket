@@ -1,0 +1,16 @@
+<section id="incoming-trades" class="pending-section">
+    <h1>Pending Trades</h1>
+    <ul>
+        {{#each pending_trades_incoming}}            
+            <li><a href="/pending/{{this.id}}">Requested by {{this.username}}</a></li>
+        {{/each}}
+    </ul>
+</section>
+<section id="outgoing-trades" class="pending-section">
+    <h1>Outgoing Trades</h1>
+    <ul>
+        {{#each pending_trades_outgoing}}
+            <li><a href="/pending/{{this.id}}">Requesting trade with {{this.username}}</a></li>
+        {{/each}}
+    </ul>
+</section>
