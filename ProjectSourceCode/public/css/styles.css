@@ -9,13 +9,25 @@
       
 .pokemon-card.normal .card-body{
   background-image: url('Normal_Background.jpg'); /* Set background image for stats */
-  color: #cb1010; /* Text color */
+  color: #000000; /* Text color */
+}
+
+.pokemon-card.normal .card-text.type {
+  font-style: italic; /* Italicize the type */
 }
 
 .pokemon-card.normal .card-title {
   margin-bottom: 0; /* Remove default margin for card title */
   font-size: 1.25rem; /* Increase font size for card title */
   color: #0751feec; /* Text color */
+  background-image: url('Normal_Background.jpg');
+}
+
+.pokemon-card.normal .list-group-item.stats {
+  margin-bottom: 0; /* Remove default margin for card title */
+  font-size: 1.00rem; /* Increase font size for card title */
+  color: #0751feec; /* Text color */
+  background-image: url('Normal_Background.jpg');
 }
 
 
