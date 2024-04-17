@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     deck_get.sends_cards_to(deck_others);
 
     const request_button_element = document.getElementById('request-trade-btn');
-    request_button_element.addEventListener('click', async () => {
+    request_button_element.addEventListener('click', async () => {        
         const url_components = window.location.href.split('/');
         const username_trade_partner = url_components[url_components.length-1];
         
