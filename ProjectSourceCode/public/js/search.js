@@ -86,10 +86,11 @@ async function make_pokemon_card(name) {
     const special_defense = stats[4].base_stat;
     const speed = stats[5].base_stat;
     const types_string = data.types.map(obj => obj.type.name);
-    const types_array = types_string.join(', ');
-    const get_one_type = types_array[0]
+    // console.log(types_string)
+    // const types_array = types_string.join(', ');
+    const get_one_type = types_string[0]
 
-    console.log(get_one_type)
+    // console.log(get_one_type)
  return elt('div', {class: "container"}, "", 
             elt('div', {class: "row"}, "", 
                 elt('div', {class: "col-md-4", style: "margin-top:20px; margin-bottom:20px;"}, "",

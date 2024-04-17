@@ -7,12 +7,12 @@
 }
 
       
-.pokemon-card.n .card-body{
+.pokemon-card.normal .card-body{
   background-image: url('orange_bg.jpg'); /* Set background image for stats */
   color: #cb1010; /* Text color */
 }
 
-.pokemon-card.n .card-title {
+.pokemon-card.normal .card-title {
   margin-bottom: 0; /* Remove default margin for card title */
   font-size: 1.25rem; /* Increase font size for card title */
   color: #0751feec; /* Text color */
@@ -22,7 +22,7 @@
   font-style: italic; /* Italicize the type */
 }
 
-.pokemon-card.n .list-group-item.stats {
+.pokemon-card.normal .list-group-item.stats {
   background-image: url('orange_bg.jpg'); /* Set background image for stats */
   background-size: cover;
   border: none; /* Remove border */
@@ -34,3 +34,13 @@
   border: none; /* Remove border */
 }
 
+.pokemon-card.electric .card-body{
+  background-image: url('meowbackground.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.electric .card-title {
+  margin-bottom: 0; /* Remove default margin for card title */
+  font-size: 1.25rem; /* Increase font size for card title */
+  color: #0751feec; /* Text color */
+}
