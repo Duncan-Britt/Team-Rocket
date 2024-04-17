@@ -20,13 +20,97 @@
 
 
 
+
+
+
+
+.pokemon-card.fire .card-body{
+  background-image: url('Fire_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.water .card-body{
+  background-image: url('Water_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.water .card-body{
+  background-image: url('Water_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
 .pokemon-card.electric .card-body{
   background-image: url('Electric_Background.jpg'); /* Set background image for stats */
   color: #cb1010; /* Text color */
 }
 
-.pokemon-card.electric .card-title {
-  margin-bottom: 0; /* Remove default margin for card title */
-  font-size: 1.25rem; /* Increase font size for card title */
-  color: #0751feec; /* Text color */
+.pokemon-card.grass .card-body{
+  background-image: url('Grass_Background.jfif'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.ice .card-body{
+  background-image: url('Ice_Background.avif'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.fighting .card-body{
+  background-image: url('Fighting_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.poison .card-body{
+  background-image: url('Poison_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.ground .card-body{
+  background-image: url('Ground_Background.jfif'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.flying .card-body{
+  background-image: url('flying_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.psychic .card-body{
+  background-image: url('Psychic_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.bug .card-body{
+  background-image: url('Bug_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.rock .card-body{
+  background-image: url('Rock_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.ghost .card-body{
+  background-image: url('Ghost_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.dragon .card-body{
+  background-image: url('Dragon_Background.jfif'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.dark .card-body{
+  background-image: url('Dark_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+
+.pokemon-card.steel .card-body{
+  background-image: url('Steel_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
+}
+
+.pokemon-card.fairy .card-body{
+  background-image: url('Fairy_Background.jpg'); /* Set background image for stats */
+  color: #cb1010; /* Text color */
 }
