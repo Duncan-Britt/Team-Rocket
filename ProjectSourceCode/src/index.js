@@ -146,6 +146,61 @@ async function fetch_pokemon_info(pokemon_name) {
     };
 }
 
+async function fetch_detailed_pokemon_info(pokemon_name) {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon_name}`);
+    if (!response.ok) {
+        return null;
+    }
+
+    const data = await response.json();
+    const img_url = data.sprites.front_default;
+    const img_back_url = data.sprites.back_default;
+    const img_shiny_url = data.sprites.front_shiny;
+    const img_shiny_back_url = data.sprites.back_shiny;
+    const img_female_url = data.sprites.front_female;
+    const img_back_female_url = data.sprites.back_female;
+    const img_shiny_female_url = data.sprites.front_shiny_female;
+    const img_shiny_back_female_url = data.sprites.back_shiny_female;
+    const stats = data.stats;    
+    const hp = stats[0].base_stat;
+    const attack = stats[1].base_stat;
+    const defense = stats[2].base_stat;
+    const special_attack = stats[3].base_stat;
+    const special_defense = stats[4].base_stat;
+    const speed = stats[5].base_stat;
+    const types_string = data.types.map(obj => obj.type.name).join(', ');
+    const abilities = data.abilities.map(obj => obj.ability.name).join(', ');
+    const base_experience = data.base_experience;
+    const height = data.height;
+    const weight = data.weight;
+    const moves = data.moves.map(obj => obj.move.name).join(', ');
+
+
+    return {
+        name: capitalize(pokemon_name),
+        img_url,
+        img_back_url,
+        img_shiny_url,
+        img_shiny_back_url,
+        img_female_url,
+        img_back_female_url,
+        img_shiny_female_url,
+        img_shiny_back_female_url,        
+        hp,
+        attack,
+        defense,
+        special_attack,
+        special_defense,
+        speed,
+        types_string,
+        abilities,
+        base_experience,
+        height,
+        weight,
+        moves,
+    };
+}
+
 async function db_query_pokemon_of_user_id(id) {
     const sql_select_cards = `
 SELECT Pokemon.name FROM Pokemon
@@ -187,9 +242,13 @@ WHERE username = $1;`;
 }
 
 app.get('/collections', async (req, res) => {
+    if(!req.session.user_id)
+    {
+        res.redirect('/login');
+    }
     try {               
         const pokemons_your = await get_users_collection_by_user_id(req.session.user_id);
-        
+                
         res.render('pages/collections', { 
             pokemon: pokemons_your,
             userLoggedIn: req.session.user_id,
@@ -206,8 +265,7 @@ app.get('/collections', async (req, res) => {
 app.get('/collection/:username', async (req, res) => {    
     const username = req.params.username;
     try {        
-        const pokemons = await db_query_pokemon_of_user_name_with_amounts(username);
-        
+        const pokemons = await db_query_pokemon_of_user_name_with_amounts(username);       
         let distinct_pokemon_counts_assoc = {};
         for (const pokemon of pokemons) {
             distinct_pokemon_counts_assoc[pokemon.name] = pokemon.amount_pokemon;
@@ -308,6 +366,10 @@ app.get('/pending', async (req, res) => {
 
 // route for the trade page
 app.get('/trade', async (req, res) => {
+    if(!req.session.user_id)
+    {
+        res.redirect('/login');
+    }  
     const sql_select_usernames = `
 SELECT id, username FROM Users;`;
     try {
@@ -646,7 +708,11 @@ async function get_users_collection_by_username(username) {
 
 // The purpose of this page is to allow the user to specify the cards they want to trade with a partner
 // and request the trade.
-app.get('/trade/:username', async (req, res) => {    
+app.get('/trade/:username', async (req, res) => {
+    if(!req.session.user_id)
+    {
+        res.redirect('/login');
+    }      
     const other_username = req.params.username;    
     try {        
         let pokemons_other = await get_users_collection_by_username(other_username);        
@@ -731,6 +797,10 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/logout', (req, res) => {
+    if(!req.session.user_id)
+    {
+        res.redirect('/login');
+    }  
     req.session.user_id = null;
     req.session.save();
     req.flash('logout-success', {
@@ -820,6 +890,25 @@ app.get('/search', (req, res) => {
                 error: true,
                 message: err.message,
             });
+        });
+});
+
+// route to display more detailed pokemon information
+app.get('/pokemon/:name', (req,res) => {
+    const pokemon_name = req.params.name.toLowerCase();
+        fetch_detailed_pokemon_info(pokemon_name)
+        .then((pokemon_info) => {            
+            res.render('pages/pokemon', {
+                pokemon: pokemon_info,
+                userLoggedIn: req.session.user_id,
+            });
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({
+                message: 'There has been an error. Please try again later.',
+                error: true,
+            });        
         });
 });
 
