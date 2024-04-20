@@ -1,35 +1,32 @@
-.reg-form {
-  margin: 20px auto; 
-  width: 80%; /* Adjust the width as needed */ 
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow for better focus */
-  border-radius: 8px; /* Optional: rounds the corners for a smoother look */
-}
+
 
       
 /* Define a container for the card */
-.pokemon-card {
+.pokemon-card.normal {
   border: 8px solid #ffee05; /* Add a border */
   border-radius: 10px; /* Round the corners */
   width: 200px; /* Adjust width */
   /* padding: 10px; Add padding */
   /* height: 300px; */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); Add shadow */
   background-image: url('/images/Normal_image_background.jpg');
   background-size: contain; /* Make the background image fit within the container */
+  background-repeat: no-repeat;
+
 
 }
 
 /* Set background image for the card body */
-.pokemon-card .card-body{
+.pokemon-card.normal .card-body{
   background-image: url('Normal_Background.jpg');
   background-size: cover; /* Adjust background size */
   color: #000000;
 }
 
 /* Set background image for the card image */
-.pokemon-card .card-img-top{
+.pokemon-card.normal .card-img-top{
   /* background-image: url('Normal_Background.jpg'); */
+  margin-top: 0;
   background-size: cover; /* Adjust background size */
   color: #000000;
   height: 200px; /* Adjust height */
@@ -39,13 +36,13 @@
 
 
 /* Italicize the type */
-.pokemon-card .card-text.type {
+.pokemon-card.normal .card-text.type {
   font-style: italic;
   font-size: 14px;
 }
 
 /* Style the card title */
-.pokemon-card .card-title {
+.pokemon-card.normal .card-title {
   margin-bottom: 0;
   font-size: 1.5rem; /* Increase font size */
   color: #0751feec;
@@ -53,7 +50,7 @@
 }
 
 /* Style the stats */
-.pokemon-card .list-group-item.stats {
+.pokemon-card.normal .list-group-item.stats {
   margin-bottom: 0;
   /* font-size: 1.2rem; Adjust font size */
   background-image: url('Normal_Background.jpg');
