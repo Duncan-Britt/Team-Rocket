@@ -33,6 +33,25 @@
   background-color: #ee0505; /* Add background color */
 }
 
+.pokemon-card .card-img-top.with-background {
+  position: relative; /* Set position to relative */
+   /* Ensure the image stays above the background */
+}
+
+.pokemon-card .card-img-top.with-background::before {
+  content: ''; /* Add content */
+  position: absolute; /* Set position to absolute */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  width: 100%; /* Take full width */
+  height: 100%; /* Take full height */
+  background-image: url('Normal_Background.jpg'); /* Background image */
+  background-size: cover; /* Adjust background size */
+  opacity: 0.5; /* Adjust background opacity */
+  z-index: -1; /* Set lower z-index to position behind the image */
+}
+
+
 /* Italicize the type */
 .pokemon-card .card-text.type {
   font-style: italic;
