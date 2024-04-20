@@ -7,27 +7,52 @@
 }
 
       
-.pokemon-card.normal .card-body{
-  background-image: url('Normal_Background.jpg'); /* Set background image for stats */
-  color: #000000; /* Text color */
+/* Define a container for the card */
+.pokemon-card {
+  border: 8px solid #ffee05; /* Add a border */
+  border-radius: 10px; /* Round the corners */
+  width: 200px; /* Adjust width */
+  padding: 10px; /* Add padding */
+  background-color: #fff; /* Set background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
 }
 
-.pokemon-card.normal .card-text.type {
-  font-style: italic; /* Italicize the type */
-}
-
-.pokemon-card.normal .card-title {
-  margin-bottom: 0; /* Remove default margin for card title */
-  font-size: 1.25rem; /* Increase font size for card title */
-  color: #0751feec; /* Text color */
+/* Set background image for the card body */
+.pokemon-card .card-body{
   background-image: url('Normal_Background.jpg');
+  background-size: cover; /* Adjust background size */
+  color: #000000;
 }
 
-.pokemon-card.normal .list-group-item.stats {
-  margin-bottom: 0; /* Remove default margin for card title */
-  font-size: 1.00rem; /* Increase font size for card title */
-  color: #0751feec; /* Text color */
+/* Set background image for the card image */
+.pokemon-card .card-img-top{
   background-image: url('Normal_Background.jpg');
+  background-size: cover; /* Adjust background size */
+  color: #000000;
+  height: 150px; /* Adjust height */
+  background-color: #ee0505; /* Add background color */
+}
+
+/* Italicize the type */
+.pokemon-card .card-text.type {
+  font-style: italic;
+}
+
+/* Style the card title */
+.pokemon-card .card-title {
+  margin-bottom: 0;
+  font-size: 1.5rem; /* Increase font size */
+  color: #0751feec;
+  text-align: center; /* Center align */
+}
+
+/* Style the stats */
+.pokemon-card .list-group-item.stats {
+  margin-bottom: 0;
+  font-size: 1.2rem; /* Adjust font size */
+  color: #0751feec;
+  background-color: rgba(255, 255, 255, 0.7); /* Add background color with transparency */
+  border: none; /* Remove border */
 }
 
 
