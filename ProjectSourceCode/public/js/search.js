@@ -87,7 +87,10 @@ async function make_pokemon_card_local(name) {
     const special_attack = stats[3].base_stat;
     const special_defense = stats[4].base_stat;
     const speed = stats[5].base_stat;
-    const types_string = data.types.map(obj => obj.type.name).join(', ');
+    const types_string = data.types.map(obj => obj.type.name);
+    // console.log(types_string)
+    // const types_array = types_string.join(', ');
+    const get_one_type = types_string[0]
 
     return elt('div', {class: "container"}, "", 
                elt('div', {class: "row"}, "", 

@@ -70,18 +70,7 @@ body {
   padding: 10px 10px;
 }
 
-.pokemon-card {
-  background-color: rgb(255, 246, 208, 0.8);
-  cursor: pointer;
-  width: 300px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  margin: 8px 8px;
-  padding: 5px 5px;
-  display: flex;
-  justify-content: center; /* horizontal */
-  align-items: center;   /* vertical */
-}
+
 
 .pokemon-card table tr:first-child td:first-child {
   background-color: #86ebd5; 
