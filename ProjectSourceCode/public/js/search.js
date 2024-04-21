@@ -92,7 +92,7 @@ async function make_pokemon_card_local(name) {
     return elt('div', {class: "container"}, "", 
                elt('div', {class: "row"}, "", 
                    elt('div', {class: "col-md-4", style: "margin-top:20px; margin-bottom:20px;"}, "",
-                       elt('div', {class: "card pokemon-card", width: "18rem", style: "background-image: url('/images/orange_bg.jpg')" }, "",
+                       elt('div', {class: `card pokemon-card ${get_one_type}`, width: "18rem", style: "" }, "",
                            elt('img', {className: "card-img-top", src: img_url, alt:"Card image cap" }, ""),
                            elt ('div', {class : "card-body"}, '', 
                                 elt('h5', {class: 'card-title', id:'pokemon_name'}, capitalize(name)),
