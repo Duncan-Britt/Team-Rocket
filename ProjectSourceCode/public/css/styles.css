@@ -116,11 +116,6 @@ body {
   padding: 10px 10px;
 }
 
-/* #pokemon-container {
-  display: flex;
-  flex-wrap: wrap;
-} */
-
 .pokemon-container {
   display: flex;
   flex-wrap: wrap;
