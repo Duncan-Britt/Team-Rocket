@@ -166,14 +166,14 @@ app.get('/search', async (req, res) => {
   
 
 // route for the collections page
-app.get('/collections', (req, res) => {
-    res.render('pages/collections', {
-        userLoggedIn: req.session.user_id,
-        flash_messages: req.flash('create-account-success')
-            .concat(req.flash('login-success'))
-            .concat(req.flash('logout-success')),
-    });
-});
+// app.get('/collections', (req, res) => {
+//     res.render('pages/collections', {
+//         userLoggedIn: req.session.user_id,
+//         flash_messages: req.flash('create-account-success')
+//             .concat(req.flash('login-success'))
+//             .concat(req.flash('logout-success')),
+//     });
+// });
 
 async function fetch_pokemon_info(pokemon_name) {    
     try {
@@ -191,7 +191,9 @@ async function fetch_pokemon_info(pokemon_name) {
         const special_attack = stats[3].base_stat;
         const special_defense = stats[4].base_stat;
         const speed = stats[5].base_stat;
-        const types_string = data.types.map(obj => obj.type.name).join(', ');
+        const types = data.types.map(obj => obj.type.name);
+        const types_string = types.join(', ');
+        const first_type = types[0];
 
         return {
             name: capitalize(pokemon_name),
@@ -203,6 +205,7 @@ async function fetch_pokemon_info(pokemon_name) {
             special_defense,
             speed,
             types_string,
+            first_type,
         };
     } catch (err) {
         console.error(err);

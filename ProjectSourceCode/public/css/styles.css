@@ -116,10 +116,19 @@ body {
   padding: 10px 10px;
 }
 
-#pokemon-container {
+/* #pokemon-container {
   display: flex;
   flex-wrap: wrap;
+} */
+
+.pokemon-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch;
 }
+
 
 .pokemon-card table tr:first-child td:first-child {
   background-color: #86ebd5; 
