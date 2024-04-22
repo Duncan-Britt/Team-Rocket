@@ -33,11 +33,8 @@ class Deck {
         if (this.cards[name].count >= 2) {
             this.cards[name].count -= 1;                        
             dom_card.dataset.count -= 1;
-            const dom_table = dom_card.firstElementChild;
-            const dom_tbody = dom_table.firstElementChild;
-            const dom_tr = dom_tbody.firstElementChild;
-            const dom_td = dom_tr.firstElementChild;
-            dom_td.innerText = this.cards[name].count;            
+            const dom_li_card_counter = dom_card.querySelector('.counter');
+            dom_li_card_counter.innerText = this.cards[name].count;            
         } else if (this.cards[name].count == 1) {
             delete this.cards[name];
             dom_card.remove();
@@ -57,17 +54,15 @@ class Deck {
             this.cards[name].count += 1;
             const dom_card = this.dom.querySelector(`.pokemon-card[data-name="${name}"]`);
             dom_card.dataset.count = this.cards[name].count;
-            const dom_table = dom_card.firstElementChild;
-            const dom_tbody = dom_table.firstElementChild;
-            const dom_tr = dom_tbody.firstElementChild;
-            const dom_td = dom_tr.firstElementChild;            
-            dom_td.innerText = this.cards[name].count;
+            const dom_li_card_counter = dom_card.querySelector('.counter');
+            dom_li_card_counter.innerText = this.cards[name].count;                        
         } else {
             this.cards[name] = card_info;
             const card = this.cards[name];
             card.count = 1;
             const dom_card = elt('div', {
-                class: "pokemon-card",
+                class: `card pokemon-card ${card.first_type}`,
+                width: "18rem",
                 "data-count": card.count,
                 "data-img_url": card.img_url,
                 "data-name": card.name,
@@ -77,38 +72,20 @@ class Deck {
                 "data-special_attack": card.special_attack,
                 "data-special_defense": card.special_defense,
                 "data-speed": card.speed,
+                "data-first_type": card.first_type,
                 "data-types_string": card.types_string,
-            }, "",               
-                                     elt('table', {}, "",
-                                         elt('tbody', {}, "",
-                                             elt('tr', {}, "",
-                                                 elt('td', { colspan: 2 }, `${card.count}`)),
-                                             elt('tr', {}, "",
-                                                 elt('td', { colspan: 2 }, "",
-                                                     elt('img', { src: card.img_url }))),
-                                             elt('tr', {}, "",
-                                                 elt('td', {}, card.name)),                    
-                                             elt('tr', {}, "",
-                                                 elt('td', {}, `Attack:`),
-                                                 elt('td', {}, `${card.attack}`)),
-                                             elt('tr', {}, "",
-                                                 elt('td', {}, `Defense:`),
-                                                 elt('td', {}, `${card.defense}`)),
-                                             elt('tr', {}, "",
-                                                 elt('td', {}, `Hitpoints:`),
-                                                 elt('td', {}, `${card.hp}`)),
-                                             elt('tr', {}, "",
-                                                 elt('td', {}, `Special Attack:`),
-                                                 elt('td', {}, `${card.special_attack}`)),
-                                             elt('tr', {}, "",
-                                                 elt('td', {}, `Special Defense:`),
-                                                 elt('td', {}, `${card.special_defense}`)),
-                                             elt('tr', {}, "",
-                                                 elt('td', {}, `Speed:`),
-                                                 elt('td', {}, `${card.speed}`)),
-                                             elt('tr', {}, "",
-                                                 elt('td', {}, `Type(s):`),
-                                                 elt('td', {}, `${card.types_string}`)))));          
+            }, "",
+                                 elt('img', {className: "card-img-top", src: card.img_url, alt:"Card image cap" }, ""),
+                                 elt ('div', {class : "card-body"}, '',
+                                      
+                                      elt('h5', {class: 'card-title', id:'pokemon_name'}, capitalize(card.name)),
+                                      elt('p', {class: 'card-text type'}, `Type(s): ${card.types_string}`)
+                                     ),
+                                 elt ('ul', {class : "list-group list-group-flush", id: 'pokemon_description'}, '', 
+                                      elt('li', {class: 'list-group-item stats'}, `Hitpoints: ${card.hp}    Attack: ${card.attack}    Speed:${card.speed}   `),
+                                      elt('li', {class: 'list-group-item stats'}, `Special Attack: ${card.special_attack} \n Special Defense: ${card.special_defense}`),
+                                      elt('li', {class: 'counter'}, `${card.count}`)
+                                     ));          
             this.dom.appendChild(dom_card);
             dom_card.addEventListener('click', e => {
                 this.send_card(dom_card.dataset.name);

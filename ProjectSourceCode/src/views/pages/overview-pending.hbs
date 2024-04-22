@@ -9,7 +9,7 @@
         <h2>Get</h2>
         <div class="pokemon-container">
             {{#each get.pokemon}}
-                <div class="pokemon-card"
+                <div class="card pokemon-card {{this.first_type}}"
                      data-count="{{this.count}}" 
                      data-img_url="{{this.img_url}}" 
                      data-name="{{this.name}}" 
@@ -18,43 +18,19 @@
                      data-hp="{{this.hp}}" 
                      data-special_attack="{{this.special_attack}}" 
                      data-special_defense="{{this.special_defense}}" 
-                     data-speed="{{this.speed}}" 
+                     data-speed="{{this.speed}}"
+                     data-first_type="{{this.first_type}}"
                      data-types_string="{{this.types_string}}">
-                    <table>
-                        <tbody>                        
-                            <tr><td colspan="2">{{this.count}}</td></tr>
-                            <tr><td colspan="2"><img src="{{this.img_url}}" /></td></tr>
-                            <tr><td>{{this.name}}</td></tr>
-                            <tr>
-                                <td>Attack:</td>
-                                <td>{{this.attack}}</td>
-                            </tr>
-                            <tr>
-                                <td>Defense:</td>
-                                <td>{{this.defense}}</td>
-                            </tr>
-                            <tr>
-                                <td>Hitpoints:</td>
-                                <td>{{this.hp}}</td>
-                            </tr>
-                            <tr>
-                                <td>Special Attack:</td>
-                                <td>{{this.special_attack}}</td>
-                            </tr>
-                            <tr>
-                                <td>Special Defense:</td>
-                                <td>{{this.special_defense}}</td>
-                            </tr>
-                            <tr>
-                                <td>Speed:</td>
-                                <td>{{this.speed}}</td>
-                            </tr>
-                            <tr>
-                                <td>Type(s):</td>
-                                <td>{{this.types_string}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <img classname="card-img-top" src="{{this.img_url}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" id="pokemon_name">{{this.name}}</h5>
+                        <p class="card-text type">Type(s): {{this.types_string}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush" id="pokemon_description">
+                        <li class="list-group-item stats">Hitpoints: {{this.hp}}    Attack: {{this.attack}}    Speed: {{this.speed}}   </li>
+                        <li class="list-group-item stats">Special Attack: {{this.special_attack}} <br> Special Defense: {{this.special_defense}}</li>
+                        <li class="counter"> {{this.count}} </li>
+                    </ul>                    
                 </div>            
             {{/each}}
         </div>
@@ -63,7 +39,7 @@
         <h2>Give</h2>
         <div class="pokemon-container">
             {{#each give.pokemon}}
-                <div class="pokemon-card"
+                <div class="card pokemon-card {{this.first_type}}"
                      data-count="{{this.count}}" 
                      data-img_url="{{this.img_url}}" 
                      data-name="{{this.name}}" 
@@ -72,44 +48,20 @@
                      data-hp="{{this.hp}}" 
                      data-special_attack="{{this.special_attack}}" 
                      data-special_defense="{{this.special_defense}}" 
-                     data-speed="{{this.speed}}" 
+                     data-speed="{{this.speed}}"
+                     data-first_type="{{this.first_type}}"
                      data-types_string="{{this.types_string}}">
-                    <table>
-                        <tbody>                        
-                            <tr><td colspan="2">{{this.count}}</td></tr>
-                            <tr><td colspan="2"><img src="{{this.img_url}}" /></td></tr>
-                            <tr><td>{{this.name}}</td></tr>
-                            <tr>
-                                <td>Attack:</td>
-                                <td>{{this.attack}}</td>
-                            </tr>
-                            <tr>
-                                <td>Defense:</td>
-                                <td>{{this.defense}}</td>
-                            </tr>
-                            <tr>
-                                <td>Hitpoints:</td>
-                                <td>{{this.hp}}</td>
-                            </tr>
-                            <tr>
-                                <td>Special Attack:</td>
-                                <td>{{this.special_attack}}</td>
-                            </tr>
-                            <tr>
-                                <td>Special Defense:</td>
-                                <td>{{this.special_defense}}</td>
-                            </tr>
-                            <tr>
-                                <td>Speed:</td>
-                                <td>{{this.speed}}</td>
-                            </tr>
-                            <tr>
-                                <td>Type(s):</td>
-                                <td>{{this.types_string}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>            
+                    <img classname="card-img-top" src="{{this.img_url}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" id="pokemon_name">{{this.name}}</h5>
+                        <p class="card-text type">Type(s): {{this.types_string}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush" id="pokemon_description">
+                        <li class="list-group-item stats">Hitpoints: {{this.hp}}    Attack: {{this.attack}}    Speed: {{this.speed}}   </li>
+                        <li class="list-group-item stats">Special Attack: {{this.special_attack}} <br> Special Defense: {{this.special_defense}}</li>
+                        <li class="counter"> {{this.count}} </li>
+                    </ul>                    
+                </div>                  
             {{/each}}
         </div>
     </section>
@@ -117,7 +69,7 @@
         <h1>Your Current Collection</h1>
         <div class="pokemon-container">
             {{#each your.pokemon}}
-                <div class="pokemon-card"
+                <div class="card pokemon-card {{this.first_type}}"
                      data-count="{{this.count}}" 
                      data-img_url="{{this.img_url}}" 
                      data-name="{{this.name}}" 
@@ -126,44 +78,20 @@
                      data-hp="{{this.hp}}" 
                      data-special_attack="{{this.special_attack}}" 
                      data-special_defense="{{this.special_defense}}" 
-                     data-speed="{{this.speed}}" 
+                     data-speed="{{this.speed}}"
+                     data-first_type="{{this.first_type}}"
                      data-types_string="{{this.types_string}}">
-                    <table>
-                        <tbody>                        
-                            <tr><td colspan="2">{{this.count}}</td></tr>
-                            <tr><td colspan="2"><img src="{{this.img_url}}" /></td></tr>
-                            <tr><td>{{this.name}}</td></tr>
-                            <tr>
-                                <td>Attack:</td>
-                                <td>{{this.attack}}</td>
-                            </tr>
-                            <tr>
-                                <td>Defense:</td>
-                                <td>{{this.defense}}</td>
-                            </tr>
-                            <tr>
-                                <td>Hitpoints:</td>
-                                <td>{{this.hp}}</td>
-                            </tr>
-                            <tr>
-                                <td>Special Attack:</td>
-                                <td>{{this.special_attack}}</td>
-                            </tr>
-                            <tr>
-                                <td>Special Defense:</td>
-                                <td>{{this.special_defense}}</td>
-                            </tr>
-                            <tr>
-                                <td>Speed:</td>
-                                <td>{{this.speed}}</td>
-                            </tr>
-                            <tr>
-                                <td>Type(s):</td>
-                                <td>{{this.types_string}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>            
+                    <img classname="card-img-top" src="{{this.img_url}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" id="pokemon_name">{{this.name}}</h5>
+                        <p class="card-text type">Type(s): {{this.types_string}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush" id="pokemon_description">
+                        <li class="list-group-item stats">Hitpoints: {{this.hp}}    Attack: {{this.attack}}    Speed: {{this.speed}}   </li>
+                        <li class="list-group-item stats">Special Attack: {{this.special_attack}} <br> Special Defense: {{this.special_defense}}</li>
+                        <li class="counter"> {{this.count}} </li>
+                    </ul>                    
+                </div>                  
             {{/each}}
         </div>
     </section>
@@ -171,7 +99,7 @@
         <h1>{{other.username}}'s Current Collection</h1>
         <div class="pokemon-container">
             {{#each other.pokemon}}
-                <div class="pokemon-card"
+                <div class="card pokemon-card {{this.first_type}}"
                      data-count="{{this.count}}" 
                      data-img_url="{{this.img_url}}" 
                      data-name="{{this.name}}" 
@@ -180,42 +108,20 @@
                      data-hp="{{this.hp}}" 
                      data-special_attack="{{this.special_attack}}" 
                      data-special_defense="{{this.special_defense}}" 
-                     data-speed="{{this.speed}}" 
+                     data-speed="{{this.speed}}"
+                     data-first_type="{{this.first_type}}"
                      data-types_string="{{this.types_string}}">
-                    <table>
-                        <tr><td colspan="2">{{this.count}}</td></tr>
-                        <tr><td colspan="2"><img src="{{this.img_url}}" /></td></tr>
-                        <tr><td>{{this.name}}</td></tr>
-                        <tr>
-                            <td>Attack:</td>
-                            <td>{{this.attack}}</td>
-                        </tr>
-                        <tr>
-                            <td>Defense:</td>
-                            <td>{{this.defense}}</td>
-                        </tr>
-                        <tr>
-                            <td>Hitpoints:</td>
-                            <td>{{this.hp}}</td>
-                        </tr>
-                        <tr>
-                            <td>Special Attack:</td>
-                            <td>{{this.special_attack}}</td>
-                        </tr>
-                        <tr>
-                            <td>Special Defense:</td>
-                            <td>{{this.special_defense}}</td>
-                        </tr>
-                        <tr>
-                            <td>Speed:</td>
-                            <td>{{this.speed}}</td>
-                        </tr>
-                        <tr>
-                            <td>Type(s):</td>
-                            <td>{{this.types_string}}</td>
-                        </tr>
-                    </table>
-                </div>            
+                    <img classname="card-img-top" src="{{this.img_url}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" id="pokemon_name">{{this.name}}</h5>
+                        <p class="card-text type">Type(s): {{this.types_string}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush" id="pokemon_description">
+                        <li class="list-group-item stats">Hitpoints: {{this.hp}}    Attack: {{this.attack}}    Speed: {{this.speed}}   </li>
+                        <li class="list-group-item stats">Special Attack: {{this.special_attack}} <br> Special Defense: {{this.special_defense}}</li>
+                        <li class="counter"> {{this.count}} </li>
+                    </ul>                    
+                </div>                  
             {{/each}}
         </div>
     </section>    
