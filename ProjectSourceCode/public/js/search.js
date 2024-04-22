@@ -20,8 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     search_button.addEventListener("click", async () => {
         default_cards_div.remove();
-        const name = search_input_field.value.toLowerCase();
-        const pokemon_card = await make_pokemon_card_local(name);
+        const query = search_input_field.value.toLowerCase();
+        const [ pokemon_card, name ] = await make_pokemon_card_local(query);
+        
         if (!pokemon_card) {
             pokemon_container.appendChild(
                 elt('p', { style: "color: red" }, "Pokemon not found.")
@@ -94,7 +95,7 @@ async function make_pokemon_card_local(name) {
     // const types_array = types_string.join(', ');
     const get_one_type = types_string[0]
 
-    return elt('div', {class: "container"}, "", 
+    return [elt('div', {class: "container"}, "", 
                elt('div', {class: "row"}, "", 
                    elt('div', {class: "col-md-4", style: "margin-top:20px; margin-bottom:20px;"}, "",
                        elt('div', {class: `card pokemon-card ${get_one_type}`, width: "18rem", style: "" }, "",
@@ -110,7 +111,7 @@ async function make_pokemon_card_local(name) {
                           )
                       )
                   )
-              );
+               ), name];
 
 }
 

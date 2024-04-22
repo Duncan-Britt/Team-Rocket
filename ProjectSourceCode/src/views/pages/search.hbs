@@ -14,25 +14,18 @@
 <div id="pokemon-container"></div>
 <script type="text/javascript" src="/js/shared_functions.js"></script>
 <script type="text/javascript" src="/js/search.js"></script>
-<div id="default-cards">
-    <table>
-        <tbody>
-            <tr>
-                
-                {{#each results}}
-                    <div class="card pokemon-card" style="width: 18rem;">
-                        <img class="card-img-top" alt="Card image cap" src="{{this.img_url}}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{this.name}}</h5>
-                            <p class="card-text type">{{this.type_string}}</p>
-                        </div>
-                        <ul class="list-group list-group-flush" id="pokemon_description">
-                            <li class="list-group-item stats"> HP:{{this.hp}}  Attack: {{this.attack}} Defense: {{this.defense}}</li>
-                            <li class="list-group-item stats">Special Attack: {{this.special_attack}} Speed: {{this.speed}}</li>
-                        </ul>
-                    </div>                    
-                {{/each}}
-            </tr>
-        </tbody>
-    </table> 
+<div id="default-cards">            
+    {{#each results}}
+        <div class="card pokemon-card {{this.first_type}}" width="18rem">
+            <img class="card-img-top" alt="Card image cap" src="{{this.img_url}}">
+            <div class="card-body">
+                <h5 class="card-title">{{this.name}}</h5>
+                <p class="card-text type">{{this.type_string}}</p>
+            </div>
+            <ul class="list-group list-group-flush" id="pokemon_description">
+                <li class="list-group-item stats"> HP:{{this.hp}}  Attack: {{this.attack}} Defense: {{this.defense}}</li>
+                <li class="list-group-item stats">Special Attack: {{this.special_attack}} Speed: {{this.speed}}</li>
+            </ul>
+        </div>                    
+    {{/each}}           
 </div>
