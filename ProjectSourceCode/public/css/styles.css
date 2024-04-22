@@ -70,7 +70,10 @@ body {
   padding: 10px 10px;
 }
 
-
+#pokemon-container {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 .pokemon-card table tr:first-child td:first-child {
   background-color: #86ebd5; 
@@ -82,7 +85,6 @@ body {
   align-items: center; 
   text-align: center;
 }
-
 
 /* Modal CSS */
 .my-modal {
@@ -120,6 +122,12 @@ body {
   padding: 10px 10px;
 }
 
+
+#default-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .pokemon-card {
   width: 200px;
   background-color: #fff;
@@ -134,6 +142,14 @@ body {
   font-size: 12px;
 }
 
+.counter {
+  /* border */
+  background-color: #eee;
+  width: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border-radius: 100%;
+}
 
 .pokemon-card .card-title {
   margin-bottom: 0; 
@@ -378,4 +394,3 @@ body {
 .pokemon-card.fairy .list-group-item.stats{
   background-image: url('/images/Fairy_Background.jpg'); 
 }
-      

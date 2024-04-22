@@ -10,6 +10,7 @@ const axios = require('axios');
 // const Pokedex = require('pokedex-promise-v2');
 // const P = new Pokedex();
 const flash = require('express-flash');
+const { constants } = require('fs');
 app.use(express.static(__dirname + '/'));
 
 // import express from 'express'; // I changed several of these imports to use the import syntax instead of require to support ESM modules (Jason Hunter)
@@ -98,33 +99,15 @@ app.get('/', (req, res) => {
     });
 });
 
-// route for the search page
-app.get('/search', (req, res) => { 
-    res.render('pages/search', {
-        flash_messages: req.flash('pokemon-added'),
-        userLoggedIn: req.session.user_id,
-    });
-});
-
-// // route for the collections page
-// app.get('/collections', (req, res) => {
-//     res.render('pages/collections', {
-//         userLoggedIn: req.session.user_id,
-//         flash_messages: req.flash('create-account-success')
-//             .concat(req.flash('login-success'))
-//             .concat(req.flash('logout-success')),
-//     });
-// });
-
-async function fetch_pokemon_info(pokemon_name) {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon_name}`);
+async function retrive_dat(name) {    
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
     if (!response.ok) {
         return null;
     }
-
     const data = await response.json();
     const img_url = data.sprites.front_default;
-    const stats = data.stats;    
+    const stats = data.stats;
+    name = data.name; // <== maybe i don't need this
     const hp = stats[0].base_stat;
     const attack = stats[1].base_stat;
     const defense = stats[2].base_stat;
@@ -133,17 +116,98 @@ async function fetch_pokemon_info(pokemon_name) {
     const speed = stats[5].base_stat;
     const types_string = data.types.map(obj => obj.type.name).join(', ');
 
-    return {
-        name: capitalize(pokemon_name),
-        img_url,        
-        hp,
-        attack,
-        defense,
-        special_attack,
-        special_defense,
-        speed,
-        types_string,
-    };
+    const dat_stuff = {img_url, hp, attack, defense, special_attack, special_defense, speed, types_string};
+
+    return dat_stuff;
+
+}
+
+app.get('/search', async (req, res) => {
+    try {
+        const results = await axios({
+            url: `https://pokeapi.co/api/v2/pokemon`,
+            method: 'GET',
+            dataType: 'json',
+            headers: {
+              'Accept-Encoding': 'application/json',
+            }
+        });
+          
+        var pokemons = [];
+        if (results && results.data.results && results.data.results) {
+            pokemons = results.data.results;
+        }
+        
+        const poke_stats = results.results;
+
+        let n = pokemons.length;
+        var data_search_card = new Array();
+        
+        for (let i = 0; i < n; i++)
+        {
+            data_search_card[i] = await fetch_pokemon_info(pokemons[i].name);
+        }        
+
+        res.render('pages/search', {
+            flash_messages: req.flash('pokemon-added'),
+            userLoggedIn: req.session.user_id,
+            results: data_search_card,
+        });
+    } catch(error) {
+        console.log(error);
+        res.render('pages/search', {
+                flash_messages: req.flash('pokemon-added'),
+                userLoggedIn: req.session.user_id,
+                message: "error",
+        });
+    }        
+    
+  });
+  
+
+// route for the collections page
+app.get('/collections', (req, res) => {
+    res.render('pages/collections', {
+        userLoggedIn: req.session.user_id,
+        flash_messages: req.flash('create-account-success')
+            .concat(req.flash('login-success'))
+            .concat(req.flash('logout-success')),
+    });
+});
+
+async function fetch_pokemon_info(pokemon_name) {    
+    try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon_name}`);
+        if (!response.ok) {
+            return null;
+        }        
+
+        const data = await response.json();
+        const img_url = data.sprites.front_default;
+        const stats = data.stats;    
+        const hp = stats[0].base_stat;
+        const attack = stats[1].base_stat;
+        const defense = stats[2].base_stat;
+        const special_attack = stats[3].base_stat;
+        const special_defense = stats[4].base_stat;
+        const speed = stats[5].base_stat;
+        const types_string = data.types.map(obj => obj.type.name).join(', ');
+
+        return {
+            name: capitalize(pokemon_name),
+            img_url,        
+            hp,
+            attack,
+            defense,
+            special_attack,
+            special_defense,
+            speed,
+            types_string,
+        };
+    } catch (err) {
+        console.error(err);
+        return {};
+    }
 }
 
 async function fetch_detailed_pokemon_info(pokemon_name) {

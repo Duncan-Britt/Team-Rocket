@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 
                 for (const pokemon_card_element of card_elements) {
+                    console.log(pokemon_card_element);
                     pokemon_container.appendChild(pokemon_card_element);
                 }              
             }
