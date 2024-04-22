@@ -129,6 +129,10 @@ body {
   align-items: stretch;
 }
 
+.pokemon-container {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 .pokemon-card table tr:first-child td:first-child {
   background-color: #86ebd5; 
@@ -189,6 +193,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 10px;
+  margin: 2px 2px;
 }
 
 .pokemon-card .card-text.type {

@@ -46,7 +46,7 @@ async function make_pokemon_card_with_count(name, count) {
                     elt('li', {class: 'list-group-item stats'}, `Special Attack: ${special_attack} \n Special Defense: ${special_defense}`),
                     elt('li', {class: 'counter'}, `${count}`)
                    )
-              );                   
+              );
 }
 
 async function make_pokemon_card(name) {
