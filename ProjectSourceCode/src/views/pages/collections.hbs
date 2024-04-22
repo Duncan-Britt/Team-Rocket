@@ -1,55 +1,42 @@
- <section id="pokemon">
-        <h1>Your Pokemon</h1>
-        <div class="pokemon-container">
-            {{#each pokemon}}
-                <div class="pokemon-card"
-                     data-count="{{this.count}}" 
-                     data-img_url="{{this.img_url}}" 
-                     data-name="{{this.name}}" 
-                     data-attack="{{this.attack}}" 
-                     data-defense="{{this.defense}}"
-                     data-hp="{{this.hp}}" 
-                     data-special_attack="{{this.special_attack}}" 
-                     data-special_defense="{{this.special_defense}}" 
-                     data-speed="{{this.speed}}" 
-                     data-types_string="{{this.types_string}}">
-                    <table>
-                        <tbody>                        
-                            <tr><td colspan="2">{{this.count}}</td></tr>
-                            <tr><td colspan="2"><img src="{{this.img_url}}" /></td></tr>
-                            <tr><td>{{this.name}}</td></tr>
-                            <tr>
-                                <td>Attack:</td>
-                                <td>{{this.attack}}</td>
-                            </tr>
-                            <tr>
-                                <td>Defense:</td>
-                                <td>{{this.defense}}</td>
-                            </tr>
-                            <tr>
-                                <td>Hitpoints:</td>
-                                <td>{{this.hp}}</td>
-                            </tr>
-                            <tr>
-                                <td>Special Attack:</td>
-                                <td>{{this.special_attack}}</td>
-                            </tr>
-                            <tr>
-                                <td>Special Defense:</td>
-                                <td>{{this.special_defense}}</td>
-                            </tr>
-                            <tr>
-                                <td>Speed:</td>
-                                <td>{{this.speed}}</td>
-                            </tr>
-                            <tr>
-                                <td>Type(s):</td>
-                                <td>{{this.types_string}}</td>
-                            </tr>
-                            <tr><td colspan="2"> <a href="/pokemon/{{this.name}}"> More Info </a></td></tr>
-                        </tbody>
-                    </table>
-                </div>            
-            {{/each}}
+<section id="pokemon">
+  <h1>Your Pokemon</h1>
+  <div class="pokemon-container">
+    {{#each pokemon}}
+      <div
+        width="18rem"
+        class="card pokemon-card {{this.first_type}}"
+        data-count="{{this.count}}"
+        data-img_url="{{this.img_url}}"
+        data-name="{{this.name}}"
+        data-attack="{{this.attack}}"
+        data-defense="{{this.defense}}"
+        data-hp="{{this.hp}}"
+        data-special_attack="{{this.special_attack}}"
+        data-special_defense="{{this.special_defense}}"
+        data-speed="{{this.speed}}"
+        data-types_string="{{this.types_string}}"
+      >
+        <img
+          classname="card-img-top"
+          src="{{this.img_url}}"
+          alt="Card image cap"
+        />
+        <div class="card-body"><h5
+            class="card-title"
+            id="pokemon_name"
+          >{{this.name}}</h5>
+          <p class="card-text type">Type(s): "{{this.types_string}}</p>
         </div>
-    </section>
+        <ul class="list-group list-group-flush" id="pokemon_description">
+          <li class="list-group-item stats">Hitpoints: "{{this.hp}}" Attack: "{{this.attack}}" Defense: "{{this.defense}}" Speed:"{{this.speed}}"
+          </li>
+          <li class="list-group-item stats">Special Attack: "{{this.special_attack}}"
+            <br />
+            Special Defense: "{{this.special_defense}}"</li>
+            <li class = "more-info"> <a href="/pokemon/{{this.name}}"> More Info </a></td></tr>
+            </li>
+        </ul>
+      </div>
+    {{/each}}
+    </div>
+</section>

@@ -5,6 +5,52 @@
 /*   background-color: #f0f0f0; /\* Just for better visibility *\/ */
 /* } */
 
+/* navbar styling */
+.navbar {
+  background-color: #FFCC00; /* Light grey background, you can change it to match Pokémon theme */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 1); /* Adds a subtle shadow for depth */
+}
+
+.navbar-brand {
+  display: flex; /* Aligns the logo and text horizontally */
+  align-items: center; /* Aligns the logo and text vertically */
+  gap: 12px; /* Adds space between text and image */
+  color: #555; /* Dark grey color for text */
+  font-weight: bolder;
+}
+
+.navbar-brand:hover {
+  color: #dd3e3e; /* Pokémon red color on hover */
+  text-decoration: none; /* Removes underline on hover */
+}
+
+.navbar img {
+  height: auto;
+  transition: transform 0.2s ease; /* Smooth transition for hover effect */
+}
+
+.navbar img:hover {
+  transform: scale(1.25); /* Slightly enlarges icons on hover */
+}
+
+@media (max-width: 768px) {
+  /* Styles for mobile screens */
+  .navbar {
+    padding: 10px;
+  }
+  .navbar-brand {
+    margin: 5px 0;
+    flex-direction: column; /* Stack icon and text on smaller screens */
+    align-items: center;
+  }
+}
+
+.pokemon-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
 body {
   background-image:url('/images/background.jpeg');
   background-size: cover;
@@ -70,9 +116,17 @@ body {
   padding: 10px 10px;
 }
 
-#pokemon-container {
+/* #pokemon-container {
   display: flex;
   flex-wrap: wrap;
+} */
+
+.pokemon-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch;
 }
 
 .pokemon-container {
