@@ -89,12 +89,15 @@ async function make_pokemon_card_local(name) {
     const special_attack = stats[3].base_stat;
     const special_defense = stats[4].base_stat;
     const speed = stats[5].base_stat;
-    const types_string = data.types.map(obj => obj.type.name).join(', ');
+    const types_string = data.types.map(obj => obj.type.name);
+    // console.log(types_string)
+    // const types_array = types_string.join(', ');
+    const get_one_type = types_string[0]
 
     return elt('div', {class: "container"}, "", 
                elt('div', {class: "row"}, "", 
                    elt('div', {class: "col-md-4", style: "margin-top:20px; margin-bottom:20px;"}, "",
-                       elt('div', {class: "card pokemon-card", width: "18rem", style: "background-image: url('/images/orange_bg.jpg')" }, "",
+                       elt('div', {class: `card pokemon-card ${get_one_type}`, width: "18rem", style: "" }, "",
                            elt('img', {className: "card-img-top", src: img_url, alt:"Card image cap" }, ""),
                            elt ('div', {class : "card-body"}, '', 
                                 elt('h5', {class: 'card-title', id:'pokemon_name'}, capitalize(name)),
