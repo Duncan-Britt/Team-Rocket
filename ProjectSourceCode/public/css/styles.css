@@ -131,4 +131,7 @@ body {
   padding: 10px 10px;
 }
 
-      
+#default-cards {
+  display: flex;
+  flex-wrap: wrap;
+}

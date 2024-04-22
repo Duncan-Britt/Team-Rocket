@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const search_input_field = document.getElementById("search_input_field");    
     const pokemon_container = document.getElementById("pokemon-container");
     const login_data_element = document.getElementById("is-logged-in");
-    const is_logged_in = login_data_element.dataset.isloggedin == "true" ? true : false;    
+    const is_logged_in = login_data_element.dataset.isloggedin == "true" ? true : false;
+    const default_cards_div = document.getElementById('default-cards');
     
     search_input_field.addEventListener("keypress", (event) => {
         // If the user presses the "Enter" key on the keyboard
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     search_button.addEventListener("click", async () => {
+        default_cards_div.remove();
         const name = search_input_field.value.toLowerCase();
         const pokemon_card = await make_pokemon_card_local(name);
         if (!pokemon_card) {
