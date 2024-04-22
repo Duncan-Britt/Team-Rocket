@@ -123,7 +123,6 @@ async function retrive_dat(name) {
 }
 
 app.get('/search', async (req, res) => {
-    
     try {
         const results = await axios({
             url: `https://pokeapi.co/api/v2/pokemon`,
@@ -147,15 +146,7 @@ app.get('/search', async (req, res) => {
         for (let i = 0; i < n; i++)
         {
             data_search_card[i] = await fetch_pokemon_info(pokemons[i].name);
-        }
-
-        // console.log(data_search_card); 
-        
-        // while(n>0)
-        // {
-        //     data_search_card.push(retrive_dat(pokemons.name[n]));
-        //     n--;
-        // }
+        }        
 
         res.render('pages/search', {
             flash_messages: req.flash('pokemon-added'),
@@ -169,16 +160,7 @@ app.get('/search', async (req, res) => {
                 userLoggedIn: req.session.user_id,
                 message: "error",
         });
-    }
-        
-        
-    //   })
-    //   .catch(error => {
-        // Handle errors
-        
-        
-    //   });
-
+    }        
     
   });
   
