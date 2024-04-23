@@ -83,8 +83,12 @@ class Deck {
                     elt('p', { class: 'card-text type' }, `Type(s): ${card.types_string}`)
                 ),
                 elt('ul', { class: "list-group list-group-flush", id: 'pokemon_description' }, '',
-                    elt('li', { class: 'list-group-item stats' }, `Hitpoints: ${card.hp}    Attack: ${card.attack}    Speed:${card.speed}   `),
-                    elt('li', { class: 'list-group-item stats' }, `Special Attack: ${card.special_attack} \n Special Defense: ${card.special_defense}`),
+                    elt('li', { class: 'list-group-item stats' }, `Hitpoints: ${card.hp}`),
+                    elt('li', { class: 'list-group-item stats' }, `Attack: ${card.attack}`),
+                    elt('li', { class: 'list-group-item stats' }, `Defense: ${card.defense}`),
+                    elt('li', { class: 'list-group-item stats' }, `Special Attack: ${card.special_attack}`),
+                    elt('li', { class: 'list-group-item stats' }, `Special Defense: ${card.special_defense}`),
+                    elt('li', { class: 'list-group-item stats' }, `Speed: ${card.speed}`),
                 ));
             this.dom.appendChild(dom_card);
             dom_card.addEventListener('click', e => {
