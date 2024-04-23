@@ -45,6 +45,50 @@
   }
 }
 
+/*Search bar styling */
+.search-section {
+  text-align:center;
+  padding:1rem;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 40rem;
+  margin-top: 1rem;
+  margin: 0 auto; /* centers the search bar */
+  position: relative;
+  display: inline-block;
+}
+
+#search_input_field {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 25rem; /* change this to fit the length of the placeholder message */
+  font:italic 1rem Arial, sans-serif;
+  margin: 0 auto;
+}
+
+#search_button {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: none;
+  background-color: #FFCC00;
+  color: white;
+  margin-left: -3.5rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#search_button:hover {
+  background-color: #dd3e3e; /* hovering over the button is responsive and changes red */
+}
+
 .pokemon-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

@@ -1,10 +1,14 @@
-<div class="container" style="width:100%, min-height:100%, padding:5%">
-  <div class="row justify-content center mt-3">
-    <h1>Search</h1>
-    <input type="text" id="search_input_field" />
-    <button type="submit" id="search_button">Search</button>
+<section class="search-section">
+  <div class="container">
+    <div class="row">
+      <h1>Search</h1>
+      <div class="search-bar">
+        <input type="text" id="search_input_field" placeholder="Search for ANY Pokémon by their name or ID# ..."/>
+        <button type="submit" id="search_button">Search</button>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 {{#if userLoggedIn}}
   <div id="is-logged-in" data-isloggedin="true"></div>
 {{else}}
@@ -23,12 +27,14 @@
         <p class="card-text type">Type(s): {{this.types_string}}</p>
       </div>
       <ul class="list-group list-group-flush" id="pokemon_description">
-                <li class="list-group-item stats">HP: {{this.hp}}</li>
-                <li class="list-group-item stats">Attack: {{this.attack}}</li>
-                <li class="list-group-item stats">Defense: {{this.defense}}</li>
-                <li class="list-group-item stats">Special Attack: {{this.special_attack}}</li>
-                <li class="list-group-item stats">Special Defense: {{this.special_defense}}</li>
-                <li class="list-group-item stats">Speed: {{this.speed}}</li>
+        <li class="list-group-item stats">HP: {{this.hp}}</li>
+        <li class="list-group-item stats">Attack: {{this.attack}}</li>
+        <li class="list-group-item stats">Defense: {{this.defense}}</li>
+        <li class="list-group-item stats">Special Attack:
+          {{this.special_attack}}</li>
+        <li class="list-group-item stats">Special Defense:
+          {{this.special_defense}}</li>
+        <li class="list-group-item stats">Speed: {{this.speed}}</li>
       </ul>
     </div>
   {{/each}}
