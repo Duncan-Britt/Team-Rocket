@@ -22,6 +22,7 @@
 .navbar-brand:hover {
   color: #dd3e3e; /* Pokémon red color on hover */
   text-decoration: none; /* Removes underline on hover */
+  transform: scale(1.2); /* Slightly enlarges text on hover */
 }
 
 .navbar img {
@@ -82,7 +83,7 @@
   border-radius: 20px;
   border: none;
   background-color: #FFCC00;
-  color: white;
+  color: black;
   margin-left: -3.5rem;
   position: absolute;
   right: 0;
