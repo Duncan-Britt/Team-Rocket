@@ -15,7 +15,7 @@
   display: flex; /* Aligns the logo and text horizontally */
   align-items: center; /* Aligns the logo and text vertically */
   gap: 12px; /* Adds space between text and image */
-  color: #555; /* Dark grey color for text */
+  font-family: 'Pokemon solid', sans-serif; /* Pokémon font for the logo */
   font-weight: bolder;
 }
 
@@ -52,6 +52,12 @@
   background: rgba(0, 0, 0, 0.05);
 }
 
+.search-header {
+  font-family: 'Pokemon solid';
+  font-size: 2rem;
+  color: #FFCC00;
+}
+
 .search-bar {
   width: 100%;
   max-width: 40rem;
@@ -83,6 +89,7 @@
   top: 0;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  font-family: 'Pokemon hollow' , sans-serif;
 }
 
 #search_button:hover {
