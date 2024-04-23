@@ -27,7 +27,7 @@
             class="card-title"
             id="pokemon_name"
           >{{this.name}}</h5>
-          <p class="card-text type">Type(s): "{{this.types_string}}</p>
+          <p class="card-text type">Type(s): {{this.types_string}}</p>
         </div>
         <ul class="list-group list-group-flush" id="pokemon_description">
           <li class="list-group-item stats">Hitpoints: {{this.hp}} </li>
@@ -35,6 +35,7 @@
           <li class="list-group-item stats">Defense: {{this.defense}} </li>
           <li class="list-group-item stats">Special Attack: {{this.special_attack}} </li>
           <li class="list-group-item stats">Special Defense: {{this.special_defense}} </li>
+          <li class="list-group-item stats">Speed: {{this.speed}} </li>
           <li class="more-info"> 
             <a href="/pokemon/{{this.name}}"> More Info </a>
           </li>
