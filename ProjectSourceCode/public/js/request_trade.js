@@ -1,17 +1,17 @@
 // depends on ./shared_functions.js
 
 class Deck {
-    constructor(dom_container) {        
+    constructor(dom_container) {
         this.dom = dom_container;
         this.cards = {};
-        Array.from(dom_container.children).forEach(dom_card => {            
+        Array.from(dom_container.children).forEach(dom_card => {
             this.cards[dom_card.dataset.name] = Object.assign({}, dom_card.dataset);
         });
     }
 
     sends_cards_to(other_deck) {
         this.recipient = other_deck;
-        
+
         const dom_cards = this.dom.children;
         for (let i = 0; i < dom_cards.length; i++) {
             const dom_card = dom_cards[i];
@@ -21,7 +21,7 @@ class Deck {
         }
     }
 
-    send_card(name) {        
+    send_card(name) {
         // Possible states:
         // - the card being sent is the last one of it's kind, count: 1
         // - there are multiple cards, count: 2+
@@ -29,19 +29,19 @@ class Deck {
         const dom_card = this.dom.querySelector(`.pokemon-card[data-name="${name}"]`);
         let sent_card = Object.assign({}, this.cards[name]);
         delete sent_card.count;
-        
+
         if (this.cards[name].count >= 2) {
-            this.cards[name].count -= 1;                        
+            this.cards[name].count -= 1;
             dom_card.dataset.count -= 1;
             const dom_li_card_counter = dom_card.querySelector('.counter');
-            dom_li_card_counter.innerText = this.cards[name].count;            
+            dom_li_card_counter.innerText = this.cards[name].count;
         } else if (this.cards[name].count == 1) {
             delete this.cards[name];
             dom_card.remove();
         } else {
             throw new Error('Logic error in deck.send_card()');
         }
-                
+
         this.recipient.receive(sent_card);
     }
 
@@ -55,7 +55,7 @@ class Deck {
             const dom_card = this.dom.querySelector(`.pokemon-card[data-name="${name}"]`);
             dom_card.dataset.count = this.cards[name].count;
             const dom_li_card_counter = dom_card.querySelector('.counter');
-            dom_li_card_counter.innerText = this.cards[name].count;                        
+            dom_li_card_counter.innerText = this.cards[name].count;
         } else {
             this.cards[name] = card_info;
             const card = this.cards[name];
@@ -75,17 +75,21 @@ class Deck {
                 "data-first_type": card.first_type,
                 "data-types_string": card.types_string,
             }, "",
-                                 elt('img', {className: "card-img-top", src: card.img_url, alt:"Card image cap" }, ""),
-                                 elt ('div', {class : "card-body"}, '',
-                                      
-                                      elt('h5', {class: 'card-title', id:'pokemon_name'}, capitalize(card.name)),
-                                      elt('p', {class: 'card-text type'}, `Type(s): ${card.types_string}`)
-                                     ),
-                                 elt ('ul', {class : "list-group list-group-flush", id: 'pokemon_description'}, '', 
-                                      elt('li', {class: 'list-group-item stats'}, `Hitpoints: ${card.hp}    Attack: ${card.attack}    Speed:${card.speed}   `),
-                                      elt('li', {class: 'list-group-item stats'}, `Special Attack: ${card.special_attack} \n Special Defense: ${card.special_defense}`),
-                                      elt('li', {class: 'counter'}, `${card.count}`)
-                                     ));          
+                elt('li', { class: 'counter' }, `${card.count}`),
+                elt('img', { className: "card-img-top", src: card.img_url, alt: "Card image cap" }, ""),
+                elt('div', { class: "card-body" }, '',
+
+                    elt('h5', { class: 'card-title', id: 'pokemon_name' }, capitalize(card.name)),
+                    elt('p', { class: 'card-text type' }, `Type(s): ${card.types_string}`)
+                ),
+                elt('ul', { class: "list-group list-group-flush", id: 'pokemon_description' }, '',
+                    elt('li', { class: 'list-group-item stats' }, `Hitpoints: ${card.hp}`),
+                    elt('li', { class: 'list-group-item stats' }, `Attack: ${card.attack}`),
+                    elt('li', { class: 'list-group-item stats' }, `Defense: ${card.defense}`),
+                    elt('li', { class: 'list-group-item stats' }, `Special Attack: ${card.special_attack}`),
+                    elt('li', { class: 'list-group-item stats' }, `Special Defense: ${card.special_defense}`),
+                    elt('li', { class: 'list-group-item stats' }, `Speed: ${card.speed}`),
+                ));
             this.dom.appendChild(dom_card);
             dom_card.addEventListener('click', e => {
                 this.send_card(dom_card.dataset.name);
@@ -104,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const deck_get = new Deck(container_element_get);
     const deck_yours = new Deck(container_element_yours);
     const deck_others = new Deck(container_element_others);
-    
+
     deck_yours.sends_cards_to(deck_give);
     deck_others.sends_cards_to(deck_get);
     deck_give.sends_cards_to(deck_yours);
@@ -113,14 +117,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const request_button_element = document.getElementById('request-trade-btn');
 
     request_button_element.addEventListener('click', async () => {
-        if(Object.keys(deck_give.cards).length == 0 && Object.keys(deck_get.cards).length == 0) {
+        if (Object.keys(deck_give.cards).length == 0 && Object.keys(deck_get.cards).length == 0) {
             // console.log("must have something to trade")
             return;
         }
 
         const url_components = window.location.href.split('/');
-        const username_trade_partner = url_components[url_components.length-1];
-        
+        const username_trade_partner = url_components[url_components.length - 1];
+
         const trade_data = {
             give: deck_give.cards,
             get: deck_get.cards,
@@ -133,13 +137,13 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const pokemon in deck_get.cards) {
             cards_get.push([pokemon.toLowerCase(), deck_get.cards[pokemon].count]);
         }
-        
+
         const response = await fetch('/trade/' + username_trade_partner, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ give: cards_give, get: cards_get })
         });
-        
+
         window.location.href = '/trade';
     });
 });

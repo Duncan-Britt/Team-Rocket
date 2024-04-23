@@ -35,6 +35,7 @@ async function make_pokemon_card_with_count(name, count) {
     const get_one_type = types[0];
 
     return elt('div', {class: `card pokemon-card ${get_one_type}`, width: "18rem", style: "" }, "",
+               elt('li', {class: 'counter'}, `${count}`),
                elt('img', {className: "card-img-top", src: img_url, alt:"Card image cap" }, ""),
                elt ('div', {class : "card-body"}, '',
                     
@@ -42,9 +43,12 @@ async function make_pokemon_card_with_count(name, count) {
                     elt('p', {class: 'card-text type'}, `Type(s): ${types.join(', ')}`)
                    ),
                elt ('ul', {class : "list-group list-group-flush", id: 'pokemon_description'}, '', 
-                    elt('li', {class: 'list-group-item stats'}, `Hitpoints: ${hp}    Attack: ${attack}    Speed:${speed}   `),
-                    elt('li', {class: 'list-group-item stats'}, `Special Attack: ${special_attack} \n Special Defense: ${special_defense}`),
-                    elt('li', {class: 'counter'}, `${count}`)
+               elt('li', { class: 'list-group-item stats' }, `Hitpoints: ${hp}`),
+               elt('li', { class: 'list-group-item stats' }, `Attack: ${attack}`),
+               elt('li', { class: 'list-group-item stats' }, `Defense: ${defense}`),
+               elt('li', { class: 'list-group-item stats' }, `Special Attack: ${special_attack}`),
+               elt('li', { class: 'list-group-item stats' }, `Special Defense: ${special_defense}`),
+               elt('li', { class: 'list-group-item stats' }, `Speed: ${speed}`),
                    )
               );
 }

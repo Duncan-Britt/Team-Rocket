@@ -1,31 +1,35 @@
-<div class = "container" style ="width:100%, min-height:100%, padding:5%">
-    <div class = "row justify-content center mt-3">
-        <h1>Search</h1>
-        <input type="text" id="search_input_field" />
-        <button type="submit" id="search_button">Search</button>
-    </div>
+<div class="container" style="width:100%, min-height:100%, padding:5%">
+  <div class="row justify-content center mt-3">
+    <h1>Search</h1>
+    <input type="text" id="search_input_field" />
+    <button type="submit" id="search_button">Search</button>
+  </div>
 </div>
 {{#if userLoggedIn}}
-    <div id="is-logged-in" data-isloggedin="true"></div>
+  <div id="is-logged-in" data-isloggedin="true"></div>
 {{else}}
-    <div id="is-logged-in" data-isloggedin="false"></div>
+  <div id="is-logged-in" data-isloggedin="false"></div>
 {{/if}}
 
 <div id="pokemon-container"></div>
 <script type="text/javascript" src="/js/shared_functions.js"></script>
 <script type="text/javascript" src="/js/search.js"></script>
-<div id="default-cards">            
-    {{#each results}}
-        <div class="card pokemon-card {{this.first_type}}" width="18rem">
-            <img class="card-img-top" alt="Card image cap" src="{{this.img_url}}">
-            <div class="card-body">
-                <h5 class="card-title">{{this.name}}</h5>
-                <p class="card-text type">{{this.type_string}}</p>
-            </div>
-            <ul class="list-group list-group-flush" id="pokemon_description">
-                <li class="list-group-item stats"> HP:{{this.hp}}  Attack: {{this.attack}} Defense: {{this.defense}}</li>
-                <li class="list-group-item stats">Special Attack: {{this.special_attack}} Speed: {{this.speed}}</li>
-            </ul>
-        </div>                    
-    {{/each}}           
+<div id="default-cards">
+  {{#each results}}
+    <div class="card pokemon-card {{this.first_type}}" width="18rem">
+      <img class="card-img-top" alt="Card image cap" src="{{this.img_url}}" />
+      <div class="card-body">
+        <h5 class="card-title">{{this.name}}</h5>
+        <p class="card-text type">Type(s): {{this.types_string}}</p>
+      </div>
+      <ul class="list-group list-group-flush" id="pokemon_description">
+                <li class="list-group-item stats">HP: {{this.hp}}</li>
+                <li class="list-group-item stats">Attack: {{this.attack}}</li>
+                <li class="list-group-item stats">Defense: {{this.defense}}</li>
+                <li class="list-group-item stats">Special Attack: {{this.special_attack}}</li>
+                <li class="list-group-item stats">Special Defense: {{this.special_defense}}</li>
+                <li class="list-group-item stats">Speed: {{this.speed}}</li>
+      </ul>
+    </div>
+  {{/each}}
 </div>
