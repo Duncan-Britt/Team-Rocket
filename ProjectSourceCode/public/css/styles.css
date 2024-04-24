@@ -35,18 +35,18 @@
 }
 
 @media (max-width: 768px) {
-  /* Styles for mobile screens */
+  /* styles for mobile screens if thats something were to do */
   .navbar {
     padding: 10px;
   }
   .navbar-brand {
     margin: 5px 0;
-    flex-direction: column; /* Stack icon and text on smaller screens */
+    flex-direction: column; /* stacks icon and text on smaller screens */
     align-items: center;
   }
 }
 
-/*Search bar styling */
+/* search bar styling */
 .search-section {
   text-align:center;
   padding:1rem;
@@ -97,15 +97,11 @@
   background-color: #dd3e3e; /* hovering over the button is responsive and changes red */
 }
 
-.pokemon-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
-}
-
+/* background styling happens here */
 body {
   background-image:url('/images/background.jpeg');
   background-size: cover;
+  background-color: #f4f4f4;
 }
 
 /* registration/login form styling */
@@ -167,83 +163,6 @@ body {
   transform: scale(0.98);
 }
 
-
-.radio-group > label {
-  display: block;
-  cursor: pointer;
-  /* background-color: blue; */
-  margin: 0;
-  width: 100%; 
-}
-
-.radio-group > label > input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;  
-}
-
-.radio-group > label.checked {
-  background-color: #fff2c0;
-}
-
-.radio-group > label > span {
-  background-color: white;  
-  margin: 0 0;
-  display: inline-block;
-  width: 100%;
-}
-
-#trade-panes-container {  
-  display: flex;
-}
-
-.collection-container {
-  flex: 1;
-}
-
-.trading-partner-list {
-  background: white;
-  flex: 0 1 auto; /* Grow: 0, Shrink: 1, Basis: auto */
-}
-
-#req-trade-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  grid-template-rows: auto 1fr; 
-  gap: 10px;
-}
-
-#req-trade-container > section {
-  background-color: #d3cce3;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  padding: 10px 10px;
-}
-
-.pokemon-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  align-items: stretch;
-}
-
-.pokemon-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.pokemon-card table tr:first-child td:first-child {
-  background-color: #86ebd5; 
-  width: 40px; 
-  height: 40px; 
-  border-radius: 50%;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-  text-align: center;
-}
-
 /* Modal CSS */
 .my-modal {
   position: fixed;
@@ -273,6 +192,7 @@ body {
   border-top: 1px solid #eee;
 }
 
+/* pending section (could use more styling but im tired af FUTURE TASK) */
 .pending-section {
   background-color: #d3cce3;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -280,10 +200,156 @@ body {
   padding: 10px 10px;
 }
 
+/* trade form/page styling */
+.radio-group > label {
+  display: block;
+  cursor: pointer;
+  /* background-color: blue; */
+  margin: 0;
+  width: 100%; 
+}
+
+.radio-group > label > input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;  
+}
+
+.radio-group > label.checked {
+  background-color: #fff2c0;
+}
+
+.radio-group > label > span {
+  background-color: white;  
+  margin: 0 0;
+  display: inline-block;
+  width: 100%;
+}
+
+.collection-container {
+  flex: 1;
+}
+
+#req-trade-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: auto 1fr; 
+  gap: 10px;
+}
+
+#req-trade-container > section {
+  background-color: #d3cce3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 10px 10px;
+}
+
+
+#trade-header  {
+  font-family: 'Pokemon solid', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 1.5rem;
+}
+
+#tradeheader2 {
+  font-family: 'Pokemon solid', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.trading-partner-list{
+  /* font-family: 'Pokemon solid', sans-serif; */
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.trading-partner-list {
+  background: #d3cce3;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 0 1 auto; /* Grow: 0, Shrink: 1, Basis: auto */
+}
+
+/* scrollable trading partner list adjusts height accordingly  */
+.trading-partner-list {
+  max-height: 400px; /* adjust to how we want */
+  overflow-y: auto;
+}
+
+#trade-panes-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  max-width: 2400px;
+}
+
+#trade-btn {
+  background-color: #FFCC00;
+  color: black;
+  border:#0075BE;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  align-self: center;
+}
+
+#trade-btn:hover {
+  background-color: #0056b3; /* Darken on hover */
+  color: #FFCC00;
+}
+
+/* all or at least most?? css for displaying cards is below */
+
+.pokemon-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  align-items: start;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font: bolder;
+  font-size: larger;
+}
+
 
 #default-cards {
+  /* display: flex;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  align-items: start;
+}
+
+/* if we want the card to hover */
+/* .pokemon-card:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} */
+
+.pokemon-card table tr:first-child td:first-child {
+  background-color: #86ebd5; 
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center; 
+  align-items: center; 
+  text-align: center;
 }
 
 .pokemon-card {
@@ -315,13 +381,11 @@ body {
   list-style: none;
 }
 
-
-
 .pokemon-card .card-title {
   margin-bottom: 0; 
   font-size: 1.0rem;
   color: #00050cec;
-  text-align: left;
+  text-align: center;
 }
 
 .pokemon-card .list-group-item.stats {
@@ -330,11 +394,13 @@ body {
   color: #000000;
   background-color: rgba(255, 255, 255, 0.7);
   border: none;
+  text-align: center;
 }
 
 .pokemon-card .card-body{
   background-size: cover;
   color: #000000;
+  text-align: center;
 }
 
 
