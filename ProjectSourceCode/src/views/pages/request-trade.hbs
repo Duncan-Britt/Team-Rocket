@@ -1,15 +1,22 @@
 <button type="submit" id="request-trade-btn" class="btn btn-primary">Request Trade</button>
 <div id="req-trade-container">
     <section id="get">
-        <h2>Get</h2>
+        <div class="receive-container">
+            <h2>Receive</h2>
+        </div>
         <div class="pokemon-container"></div>
     </section>
+
     <section id="give">
-        <h2>Give</h2>
+        <div class="offer-container">
+            <h2>Offer</h2>
+        </div>
         <div class="pokemon-container"></div>
     </section>
     <section id="your-pokemon">
-        <h1>Your Pokemon</h1>
+        <div class = "your-pokemon-container-header">
+            <h1>Your Pokemon</h1>
+        </div>
         <div class="pokemon-container">            
             {{#each your.pokemon}}
                 <div class="card pokemon-card {{this.first_type}}"
@@ -43,7 +50,9 @@
         </div>
     </section>
     <section id="their-pokemon">
-        <h1>{{other.username}}'s Pokemon</h1>
+        <div class = "their-pokemon-container-header">
+            <h1>{{other.username}}'s Pokemon</h1>
+        </div>
         <div class="pokemon-container">
             {{#each other.pokemon}}
                 <div class="card pokemon-card {{this.first_type}}"

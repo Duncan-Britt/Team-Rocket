@@ -230,6 +230,39 @@ body {
   flex: 1;
 }
 
+.offer-container {
+  font-family: 'Pokemon solid', sans-serif;
+  text-align: center;
+}
+
+.receive-container {
+  font-family: 'Pokemon solid', sans-serif;
+  text-align: center; 
+}
+
+.their-pokemon-container-header {
+  font-family: 'Pokemon solid', sans-serif;
+  text-align: center;
+}
+
+.your-pokemon-container-header {
+  font-family: 'Pokemon solid', sans-serif;
+  text-align: center;
+}
+
+#request-trade-btn {
+  background-color: #0056b3;
+  color: #FFCC00;
+  cursor: pointer;
+  font-family: 'Pokemon solid', sans-serif;
+  font-size: 1.2rem;
+}
+
+#request-trade-btn:hover {
+  background-color: #dd3e3e;
+  color: #0056b3;
+}
+
 #req-trade-container {
   display: grid;
   grid-template-columns: 1fr 1fr; 
@@ -369,6 +402,8 @@ body {
 
 .pokemon-card .more-info{
   list-style: none;
+  text-align: center;
+  font-family: 'Pokemon solid', sans-serif;
 }
 
 .pokemon-card .counter {
