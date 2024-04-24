@@ -108,13 +108,65 @@ body {
   background-size: cover;
 }
 
+/* registration/login form styling */
 .reg-form {
-  margin: 20px auto; 
-  width: 80%;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-  border-radius: 8px;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  align-items: center;
+  background: #0075BE;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.reg-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.reg-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #333;
+  text-transform: uppercase;
+  font-family: 'Pokemon solid', sans-serif;
+  letter-spacing: 0.05rem;
+}
+
+.reg-form .form-control {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s ease;
+}
+
+.reg-form .form-control:focus::placeholder {
+  color: #999;
+}
+
+.reg-form .btn-primary {
+  width: 100%;
+  padding: 0.5rem;
+  background: #FFCC00;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-family: 'Pokemon solid', sans-serif;
+}
+
+.reg-form .btn-primary:hover {
+  background: #dd3e3e;
+}
+
+.reg-form .btn-primary:active {
+  transform: scale(0.98);
+}
+
 
 .radio-group > label {
   display: block;
